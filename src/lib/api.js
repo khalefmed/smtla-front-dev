@@ -5,17 +5,33 @@ import axios from "axios";
 export const BACKEND_BASE_URL = "https://api.smtla-sa.com/api/";
 // export const BACKEND_BASE_URL = "https://nineoumar.pythonanywhere.com/api/";
 
-const token = window.localStorage.getItem("token")
 export const api = axios.create({
   timeout: 50000,
   baseURL: BACKEND_BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    "Authorization" : `Bearer ${token}`
   },
 });
 
+api.interceptors.request.use(
+  (config) => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 api.interceptors.response.use(
-  response => response,
-  error => Promise.reject(error)
+  (response) => response,
+  (error) => {
+    console.error("API Error:", error);
+    if (error.response && error.response.status === 401) {
+      window.location.href = "/deconnexion"; 
+    }
+    
+    return Promise.reject(error);
+  }
 );
