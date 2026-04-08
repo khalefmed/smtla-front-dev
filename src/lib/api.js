@@ -28,7 +28,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API Error:", error);
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 401 && error.config.url !== "connexion/") {
       window.location.href = "/deconnexion"; 
     }
     
