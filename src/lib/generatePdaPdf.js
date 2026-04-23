@@ -34,10 +34,14 @@ export const generatePDAPDF = async (pda) => {
   // ============== INFOS CLIENT & NAVIRE ==============
   const infoData = [
     ['Customer:', pda.client?.nom || pda.client_nom || '---'],
+    ['Phone:', pda.client?.telephone || '---'],
+    ['Email:', pda.client?.email || pda.client_email || '---'],
     ['Port d\'arrivée:', pda.port_of_arrival || 'NOUAKCHOTT'],
     ['Vessel:', pda.vessel_name || '---'],
     ['Stay Duration:', `${days} Days`],
-    ['Cargo:', pda.cargo_description || 'AS PER CARGO LIST ATTACHED']
+    ['Cargo:', pda.cargo_description || 'AS PER CARGO LIST ATTACHED'],
+    ['Weight:', pda.weight || '----'],
+    ['Trip Number:', pda.voyage || '----']
   ]; 
 
   infoData.forEach(([label, value]) => {
@@ -91,7 +95,7 @@ export const generatePDAPDF = async (pda) => {
       colStyles = { 0: { cellWidth: 70 }, 1: { halign: 'center' }, 2: { halign: 'center' }, 3: { halign: 'right' }, 4: { halign: 'right' } };
     } else {
       // Configuration standard pour les autres catégories
-      headers = [[ cat.label, 'UNIT', `RATE (${currency})`, `TOTAL (${currency})` ]];
+      headers = [[ cat.label, cat.id == "STEVEDORING" ? 'UNIT (TON)' : 'UNIT', `RATE (${currency})`, `TOTAL (${currency})` ]];
       tableData = items.map(item => [
         item.label,
         cat.id === 'STEVEDORING' ? (item.grt_value || '1') : '1',
@@ -155,7 +159,8 @@ export const generatePDAPDF = async (pda) => {
   doc.text(splitRemarks, 14, yPos + 5);
 
   // ============== SIGNATURES ==============
-  const sigImage = pda.createur?.type === 'Directeur Général' ? sigDG : sigDO;
+  console.log("PDA Creator Type:", pda.createur?.type);
+  const sigImage = pda.createur?.type === 'directeur_general' ? sigDG : sigDO;
   if (sigImage) {
     // Ajustement de la position pour ne pas chevaucher le texte
     const sigY = Math.min(yPos + 20, 230);
