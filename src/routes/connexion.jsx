@@ -75,14 +75,14 @@ function Connexion() {
         .connexion-root::before {
           width: 520px;
           height: 520px;
-          background: radial-gradient(circle, var(--btn-secondary, #CCB848), transparent 70%);
+          background: radial-gradient(circle, var(--btn-secondary, #042B6B), transparent 70%);
           top: -120px;
           left: -120px;
         }
         .connexion-root::after {
           width: 400px;
           height: 400px;
-          background: radial-gradient(circle, var(--btn-primary, #CCB848), transparent 70%);
+          background: radial-gradient(circle, var(--btn-primary, #042B6B), transparent 70%);
           bottom: -100px;
           right: -80px;
           animation-delay: -4s;
@@ -116,7 +116,7 @@ function Connexion() {
         .panel-left {
           width: 52%;
           padding: 3rem 2.5rem;
-          background: linear-gradient(145deg, var(--btn-secondary, #CCB848) 0%, var(--btn-primary, #CCB848) 100%);
+          background: linear-gradient(145deg, var(--btn-secondary, #042B6B) 0%, var(--btn-primary, #042B6B) 100%);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -264,7 +264,7 @@ function Connexion() {
           transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
         }
         .input-wrap:focus-within {
-          border-color: var(--btn-secondary, #CCB848);
+          border-color: var(--btn-secondary, #042B6B);
           background: #fff;
           box-shadow: 0 0 0 4px rgba(91, 141, 238, 0.12);
         }
@@ -309,7 +309,7 @@ function Connexion() {
           padding: 14px 20px;
           border: none;
           border-radius: 12px;
-          background: linear-gradient(135deg, var(--btn-secondary, #CCB848) 0%, var(--btn-primary, #CCB848) 100%);
+          background: linear-gradient(135deg, var(--btn-secondary, #042B6B) 0%, var(--btn-primary, #042B6B) 100%);
           color: white;
           font-family: inherit;
           font-size: 0.9rem;
@@ -367,11 +367,11 @@ function Connexion() {
         .dev-credit a {
           font-size: 12px;
           font-weight: 600;
-          color: var(--btn-secondary, #CCB848);
+          color: var(--btn-secondary, #042B6B);
           text-decoration: none;
           transition: color 0.2s;
         }
-        .dev-credit a:hover { color: var(--btn-primary, #CCB848); }
+        .dev-credit a:hover { color: var(--btn-primary, #042B6B); }
 
         /* Responsive */
         @media (max-width: 768px) {

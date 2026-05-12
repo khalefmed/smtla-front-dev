@@ -318,7 +318,7 @@ const handlePay = async (id, data) => {
           <p className="text-gray-500 font-medium">{t("Gestion des factures et règlements")}</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={() => setShowImportModal(true)} className="px-6 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 flex items-center gap-2 font-bold shadow-md transition-all">
+          <button onClick={() => setShowImportModal(true)} className="px-6 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 flex items-center gap-2 font-bold shadow-md transition-all">
             <FileStack className="w-5 h-5" /> {t("Importer Devis")}
           </button>
           <button onClick={() => { setSelectedFacture(null); setShowFactureModal(true); }} className="px-6 py-3 bg-buttonGradientPrimary text-white rounded-xl hover:opacity-90 flex items-center gap-2 font-bold shadow-md transition-all">
