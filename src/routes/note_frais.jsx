@@ -170,13 +170,12 @@ function NotesDeFrais() {
 const handleSave = async (formData) => { 
   try {
     // Formatage pour correspondre aux attentes de Django (ForeignKey)
-    console.log("Selected Note EB Detail:", selectedNote);
     const payload = {
-      ...formData// On mappe l'ID vers la clé attendue
+      ...formData,
+      expression_besoin_id: selectedNote.expression_besoin_detail.id, // On mappe l'ID vers la clé attendue
     };
 
     if (selectedNote) {
-      payload.expression_besoin_id = selectedNote.expression_besoin_detail.id; // On utilise l
       console.log("Note : ", selectedNote.expression_besoin_detail.id);
       console.log("Payload : ", payload);
 
