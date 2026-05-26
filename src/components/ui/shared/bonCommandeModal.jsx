@@ -4,8 +4,8 @@ import { X, Plus, Trash2, Building2, ListPlus, ShoppingCart, Save, FileText } fr
 function BonCommandeModal({ bc, fournisseurs, onClose, onSave }) {
   const [formData, setFormData] = useState({
     fournisseur_id: '',
-    date: new Date().toISOString().split('T')[0], // Changé date_emission -> date
-    objet_commande: '', // Ajout du champ objet
+    date: new Date().toISOString().split('T')[0],
+    objet_commande: '',
     devise: 'MRU',
     items: [{ libelle: '', prix_unitaire: '', quantite: 1 }]
   });
@@ -14,7 +14,7 @@ function BonCommandeModal({ bc, fournisseurs, onClose, onSave }) {
     if (bc) {
       setFormData({
         fournisseur_id: bc.fournisseur.id,
-        date: bc.date || bc.date_emission || '', // Gestion des deux noms de champs au cas où
+        date: bc.date || bc.date_emission || '',
         objet_commande: bc.objet_commande || '',
         devise: bc.devise || 'MRU',
         items: bc.items.map(i => ({ 
@@ -52,7 +52,7 @@ function BonCommandeModal({ bc, fournisseurs, onClose, onSave }) {
 
         <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="overflow-y-auto p-8 space-y-6">
           
-          {/* Section Fournisseur et Date */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-2 space-y-2">
               <label className="text-xs font-bold uppercase text-gray-400">Fournisseur / Prestataire</label>
@@ -81,7 +81,7 @@ function BonCommandeModal({ bc, fournisseurs, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Section Objet de la commande (Nouveau) */}
+          {}
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase text-gray-400">Objet de la commande</label>
             <div className="relative">

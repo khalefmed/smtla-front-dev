@@ -1,9 +1,9 @@
-// Installation requise: npm install jspdf jspdf-autotable
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import logo from '@/assets/logo.png';
 
-// Import des signatures/cachets
+
 import sigDG from '@/assets/signatures/directeur_general.png';
 import sigDO from '@/assets/signatures/directeur_operations.png';
 import sigComptable from '@/assets/signatures/comptable.png';
@@ -25,14 +25,14 @@ export const generateBadPDF = async (bad, client) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.width;
 
-  // Configuration des styles
+ 
   const mainBlue = [31, 73, 125]; 
   const lightBlue = [70, 107, 143]; 
   const textDark = [44, 62, 80];
 
   let yPos = 15;
 
-  // ============== EN-TÊTE ==============
+ 
   const logoWidth = 45;
   const logoHeight = 22;
   try {
@@ -56,7 +56,7 @@ export const generateBadPDF = async (bad, client) => {
 
   yPos += 12;
 
-  // ============== INFOS SOCIÉTÉ ==============
+ 
   doc.setTextColor(...textDark);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
@@ -82,7 +82,7 @@ export const generateBadPDF = async (bad, client) => {
 
   yPos += 10;
 
-  // ============== ADRESSE ET PAIEMENT ==============
+ 
   doc.setFontSize(9);
   doc.text('À :', 25, yPos);
   doc.setFont('helvetica', 'bold');
@@ -111,15 +111,15 @@ export const generateBadPDF = async (bad, client) => {
 
   yPos += 20;
 
-  // ============== TABLEAU DES ITEMS ==============
+ 
   const tableData = bad.items?.map((item, index) => [
     index + 1,
     item.bl,
     item.package_number,
-    formatNombre(item.weight) // Utilisation du formateur robuste pour le poids
+    formatNombre(item.weight)
   ]) || [];
 
-  // Remplissage lignes vides pour l'esthétique
+ 
   while (tableData.length < 10) {
     tableData.push(['', '', '', '']);
   }
@@ -141,7 +141,7 @@ export const generateBadPDF = async (bad, client) => {
 
   yPos = doc.lastAutoTable.finalY + 15;
 
-  // ============== SIGNATURE & CACHET ==============
+ 
 
   let signatureImg = null;
   signatureImg = sigDO
@@ -167,6 +167,6 @@ export const generateBadPDF = async (bad, client) => {
   doc.setFontSize(9);
   doc.text('WWW.SMTLA-SA.COM', pageWidth / 2, yPos, { align: 'center' });
 
-  // Téléchargement
+ 
   doc.save(`BAD_${bad.reference || 'Doc'}.pdf`);
 };

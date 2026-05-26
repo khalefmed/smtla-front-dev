@@ -11,9 +11,9 @@ const AjouterEtudiant = ({supprimer, id}) => {
     const { i18n, t } = useTranslation();
     
 
-  const [tab, setTab] = useState("individuel"); // Tab active : 'individuel' ou 'liste'
+  const [tab, setTab] = useState("individuel");
 
-  // Champs individuels
+ 
   const [matricule, setMatricule] = useState("");
   const [prenom, setPrenom] = useState("");
   const [nom, setNom] = useState("");
@@ -22,7 +22,7 @@ const AjouterEtudiant = ({supprimer, id}) => {
   const [naissance, setNaissance] = useState("");
   const [classes, setClasses] = useState([]);
 
-  // Champs liste
+ 
   const [csvFile, setCsvFile] = useState(null);
 
           useEffect(() => {
@@ -41,7 +41,7 @@ const AjouterEtudiant = ({supprimer, id}) => {
             }
           }
     
-  // Création individuelle
+ 
   const creerIndividuel = async (e) => {
     e.preventDefault();
     if (!nom || !prenom || !classe) {
@@ -99,7 +99,7 @@ const creerParListe = async () => {
       );
     }
 
-    // Reload page after successful import
+   
     window.location.reload();
 
   } catch (err) {
@@ -141,7 +141,7 @@ const creerParListe = async () => {
                     </AlertDialog.Cancel>
         </AlertDialog.Title>
 
-        {/* TABS */}
+        {}
           <div className="flex mb-4 border-b border-gray-300">
             <button
               className={`flex-1 py-2 ${tab === 'individuel' ? 'border-b-2 border-blue-500 font-semibold' : ''}`}
@@ -162,15 +162,15 @@ const creerParListe = async () => {
         {tab == 'individuel' && (
           <form onSubmit={(e) => creer(e)} className='w-full max-sm:w-full flex flex-col gap-6 mt-6  '>
                 <div>
-                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
+                    {}
                     <input type="text" value={matricule} onChange={(e) => setMatricule(e.target.value)} placeholder={t("Matricule")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
-                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
+                    {}
                     <input type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} placeholder={t("Prenom")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
-                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
+                    {}
                     <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} placeholder={t("Nom")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
@@ -189,11 +189,11 @@ const creerParListe = async () => {
                     </select>
                 </div>
                 <div>
-                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
+                    {}
                     <input type="text" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t("Contact")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
-                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
+                    {}
                     <input type="date" value={naissance} onChange={(e) => setNaissance(e.target.value)} placeholder={t("Date de naissance")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
 

@@ -4,8 +4,8 @@ import { X, Building2, Phone, Mail, MapPin, Save, Fingerprint, FileText } from '
 function FournisseurModal({ fournisseur, onClose, onSave }) {
   const [formData, setFormData] = useState({
     nom: '',
-    nif: '', // Ajouté
-    raison_sociale: '', // Ajouté
+    nif: '',
+    raison_sociale: '',
     telephone: '',
     email: '',
     adresse: ''
@@ -15,8 +15,8 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
     if (fournisseur) {
       setFormData({
         nom: fournisseur.nom || '',
-        nif: fournisseur.nif || '', // Ajouté
-        raison_sociale: fournisseur.raison_sociale || '', // Ajouté
+        nif: fournisseur.nif || '',
+        raison_sociale: fournisseur.raison_sociale || '',
         telephone: fournisseur.telephone || '',
         email: fournisseur.email || '',
         adresse: fournisseur.adresse || ''
@@ -32,7 +32,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg animate-in zoom-in-95 duration-200 overflow-hidden">
-        {/* Header */}
+        {}
         <div className="p-6 border-b flex justify-between items-center bg-buttonGradientSecondary text-white">
           <div className="flex items-center gap-3">
             <Building2 className="w-5 h-5" />
@@ -47,7 +47,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
 
         <form onSubmit={handleSubmit} className="p-8 space-y-4">
           
-          {/* Nom / Nom Commercial */}
+          {}
           <div className="space-y-1.5">
             <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Nom Commercial</label>
             <div className="relative">
@@ -63,7 +63,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Raison Sociale & NIF (Grid) */}
+          {}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Raison Sociale</label>
@@ -95,7 +95,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {/* Téléphone */}
+            {}
             <div className="space-y-1.5">
               <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Téléphone</label>
               <div className="relative">
@@ -111,7 +111,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
               </div>
             </div>
 
-            {/* Email */}
+            {}
             <div className="space-y-1.5">
               <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Email</label>
               <div className="relative">
@@ -128,7 +128,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Adresse */}
+          {}
           <div className="space-y-1.5">
             <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Adresse Siège</label>
             <div className="relative">
@@ -144,7 +144,7 @@ function FournisseurModal({ fournisseur, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {}
           <div className="flex gap-3 pt-6">
             <button 
               type="button"

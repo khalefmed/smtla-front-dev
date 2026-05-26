@@ -62,7 +62,7 @@ function HomePage() {
       {<div onClick={changeVisibility} id="overlay" className="absolute w-full h-screen bg-overlayColor z-1 lg:hidden max-lg:hidden max-md:hidden max-sm:hidden"></div>}
       <SideBar changeVisibility={changeVisibility}/>
       <div className="w-full flex flex-col gap-10 py-20 max-lg:py-0 bg-bgGreyColor h-screen overflow-y-scroll">
-        {/* <Header ouvrir={changeVisibility}  /> */}
+        {}
         <Outlet  />
       </div>
        

@@ -50,7 +50,7 @@ function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8 px-10 max-sm:px-4 py-6">
-      {/* HEADER */}
+      {}
       <div>
         <h1 className="font-bold text-2xl text-gray-900 flex items-center gap-2">
           <LayoutDashboard className="text-buttonGradientSecondary w-8 h-8" /> {t("Tableau de Bord")}
@@ -60,10 +60,10 @@ function Dashboard() {
         </p>
       </div>
 
-      {/* --- SECTION RÉSERVÉE AU DG : FINANCES GLOBALES --- */}
+      {}
       {role === 'Directeur Général' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
-          {/* Bloc Factures Payées */}
+          {}
           <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm bg-gradient-to-br from-white to-emerald-50/30">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-emerald-500 rounded-xl text-white">
@@ -81,7 +81,7 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* Bloc Notes de Frais Validées */}
+          {}
           <div className="bg-white p-6 rounded-3xl border border-blue-100 shadow-sm bg-gradient-to-br from-white to-blue-50/30">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-blue-600 rounded-xl text-white">
@@ -101,7 +101,7 @@ function Dashboard() {
         </div>
       )}
 
-      {/* CARTES DE STATISTIQUES RAPIDES */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {hasAccess('rotations') && (
           <>
@@ -114,7 +114,7 @@ function Dashboard() {
         )}
       </div>
 
-      {/* SECTION STOCK DÉTAILLÉ */}
+      {}
       {hasAccess('rotations') && (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="p-6 border-b border-gray-50 bg-gray-50/30">
@@ -158,7 +158,7 @@ function Dashboard() {
         </div>
       )}
 
-      {/* SECTION DES LISTES EN ATTENTE */}
+      {}
       <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
         {hasAccess('expression_besoin') && (
           <ListCard 
@@ -196,7 +196,7 @@ function Dashboard() {
   );
 }
 
-// Composants internes pour la lisibilité
+
 function ListCard({ title, count, icon, data, bgColor, isDevis, isFrais }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

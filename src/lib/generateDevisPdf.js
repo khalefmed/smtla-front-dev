@@ -1,9 +1,9 @@
-// Installation requise: npm install jspdf jspdf-autotable
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import logo from '@/assets/logo.png';
 
-// Import des signatures/cachets
+
 import sigDG from '@/assets/signatures/directeur_general.png';
 import sigDO from '@/assets/signatures/directeur_operations.png';
 import sigComptable from '@/assets/signatures/comptable.png';
@@ -15,20 +15,20 @@ import sigComptable from '@/assets/signatures/comptable.png';
 const formatPrix = (valeur) => {
   if (valeur === undefined || valeur === null || isNaN(valeur)) return '0,00';
   
-  // Conversion en nombre au cas où c'est un string
+ 
   const num = Number(valeur);
   
-  // On sépare la partie entière et décimale manuellement pour un contrôle total
+ 
   let [entier, decimal] = num.toFixed(2).split('.');
   
-  // On ajoute l'espace tous les 3 chiffres pour les milliers (formatage manuel)
+ 
   entier = entier.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   
-  // On remplace le point par une virgule pour le format FR
+ 
   return `${entier},${decimal}`;
 };
 
-// Fonction de conversion de nombre en lettres ANGLAISES corrigée
+
 const numberToEnglishWords = (num) => {
   if (num === 0) return 'ZERO';
   if (!num || isNaN(num)) return '';
@@ -41,7 +41,7 @@ const numberToEnglishWords = (num) => {
     if (n < 100) return b[Math.floor(n / 10)] + (n % 10 !== 0 ? '-' + a[n % 10] : '');
     if (n < 1000) return a[Math.floor(n / 100)] + ' HUNDRED' + (n % 100 !== 0 ? ' ' + convert(n % 100) : '');
     if (n < 1000000) return convert(Math.floor(n / 1000)) + ' THOUSAND' + (n % 1000 !== 0 ? ' ' + convert(n % 1000) : '');
-    // Gestion des millions pour éviter le "Undefined"
+   
     if (n < 1000000000) return convert(Math.floor(n / 1000000)) + ' MILLION' + (n % 1000000 !== 0 ? ' ' + convert(n % 1000000) : '');
     return 'LARGE AMOUNT';
   };
@@ -58,7 +58,7 @@ export const generateDevisPDF = async (facture, client) => {
   
   let yPos = 15;
   
-  // ============== EN-TÊTE ==============
+ 
   const logoWidth = 30;
   const logoHeight = 15;
   doc.addImage(logo, 'PNG', 14, yPos - 10, logoWidth, logoHeight);
@@ -97,7 +97,7 @@ export const generateDevisPDF = async (facture, client) => {
   
   yPos += 10;
   
-  // ============== SECTION CLIENT ==============
+ 
   doc.setFillColor(...blueHeader);
   doc.rect(14, yPos, 90, 7, 'F');
   doc.rect(105, yPos, 90, 7, 'F');
@@ -115,7 +115,7 @@ export const generateDevisPDF = async (facture, client) => {
   const rightCol = 107;
   var yp = 0; 
 
-  // Colonne Gauche
+ 
   doc.setFont('helvetica', 'bold');
   doc.text('Client :', leftCol, yPos + 5);
   doc.setFont('helvetica', 'normal');
@@ -157,7 +157,7 @@ export const generateDevisPDF = async (facture, client) => {
     yp += (splitDesc.length - 1) * 4;
   }
 
-  // Colonne Droite
+ 
   var ypRight = 0;
   doc.setFont('helvetica', 'bold');
   doc.text('Vessel :', rightCol, yPos + 5);
@@ -200,7 +200,7 @@ export const generateDevisPDF = async (facture, client) => {
   
   yPos += 20 + Math.max(yp, ypRight);
   
-  // ============== TABLEAU ==============
+ 
   const currencyLabel = facture.devise || 'MRU';
   const tableData = (facture.items || []).map(item => [
     item.libelle,
@@ -225,7 +225,7 @@ export const generateDevisPDF = async (facture, client) => {
   
   yPos = doc.lastAutoTable.finalY + 5;
   
-  // ============== TOTAUX ==============
+ 
   const xTotaux = 130;
   doc.setFont('helvetica', 'bold');
   doc.text('HT TOTAL PRICE', xTotaux, yPos + 4);
@@ -243,7 +243,7 @@ export const generateDevisPDF = async (facture, client) => {
   yPos += 15;
   doc.setTextColor(0, 0, 0);
   
-  // ============== MONTANT EN LETTRES ==============
+ 
   const totalWords = numberToEnglishWords(Math.round(total));
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
@@ -251,7 +251,7 @@ export const generateDevisPDF = async (facture, client) => {
 
   yPos += 20;
 
-  // ============== SIGNATURES & CACHETS ==============
+ 
   doc.setFont('helvetica', 'bold');
   doc.text('Operations Department', 30, yPos);
   doc.text('Financial Department', 140, yPos);
@@ -269,7 +269,7 @@ export const generateDevisPDF = async (facture, client) => {
   
   yPos += 55; 
   
-  // ============== AJOUT DU COMMENTAIRE ==============
+ 
   if (facture.commentaire) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
@@ -286,7 +286,7 @@ export const generateDevisPDF = async (facture, client) => {
     yPos += (splitRemarks.length * 5) + 5;
   }
   
-  // ============== INFOS CRÉATION ==============
+ 
   doc.setFontSize(8);
   doc.setTextColor(120, 120, 120);
   doc.setFont('helvetica', 'italic');
@@ -298,7 +298,7 @@ export const generateDevisPDF = async (facture, client) => {
   doc.text(`Created by : ${createur}`, 14, yPos);
   doc.text(`Document generated on : ${dateGen}`, 14, yPos + 4);
 
-  // ============== PIED DE PAGE ==============
+ 
   const pageHeight = doc.internal.pageSize.height;
   doc.setFontSize(7);
   doc.setFont('helvetica', 'italic');

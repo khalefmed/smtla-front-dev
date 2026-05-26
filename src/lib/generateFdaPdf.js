@@ -10,7 +10,7 @@ export const generateFDAPDF = async (fda) => {
   const lightGray = [240, 240, 240]; 
   const currency = fda.currency || 'EUR';
 
-  // ============== EN-TÊTE ==============
+ 
   doc.addImage(logo, 'PNG', 14, 10, 35, 18); 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
@@ -30,11 +30,11 @@ export const generateFDAPDF = async (fda) => {
 
   yPos += 15;
 
-  // ============== INFOS CLIENT & NAVIRE ==============
+ 
   const infoData = [
     ['Customer:', fda.client?.nom || fda.client_nom || '---'],
     ['Port d\'arrivée:', fda.port_of_arrival || 'NOUAKCHOTT'],
-    // ['Vessel:', fda.vessel_name || '---'],
+   
     ['Cargo:', fda.cargo_description || 'AS PER CARGO LIST ATTACHED'],
     ['Weight (GRT):', fda.weight || '----'],
     ['Trip Number:', fda.voyage || '----']
@@ -50,7 +50,7 @@ export const generateFDAPDF = async (fda) => {
 
   yPos += 5;
 
-  // ============== TABLEAUX PAR CATÉGORIES ==============
+ 
   const categories = [
     { id: 'PORT_DUES', label: 'PORTS DUES' },
     { id: 'OTHER_EXPENSES', label: 'OTHER EXPENSES' },
@@ -68,7 +68,7 @@ export const generateFDAPDF = async (fda) => {
     let colStyles = {};
 
     if (cat.id === 'PORT_DUES') {
-      // Configuration adaptée à l'image précédente
+     
       headers = [[ 
         cat.label, 
         'PORT INV', 
@@ -88,15 +88,15 @@ export const generateFDAPDF = async (fda) => {
       ]);
 
       colStyles = { 
-        0: { cellWidth: 50 }, // Désignation
-        1: { halign: 'center' }, // Port Inv
-        2: { halign: 'center' }, // GRT
-        3: { halign: 'center' }, // Rate
-        4: { halign: 'right' },  // Price MRU
-        5: { halign: 'right' }   // Price Devise
+        0: { cellWidth: 50 },
+        1: { halign: 'center' },
+        2: { halign: 'center' },
+        3: { halign: 'center' },
+        4: { halign: 'right' }, 
+        5: { halign: 'right' }  
       };
     } else {
-      // Configuration standard pour les autres catégories
+     
       headers = [[ cat.label, 'UNIT', `RATE (${currency})`, `TOTAL (${currency})` ]];
       tableData = items.map(item => [
         item.label,
@@ -107,7 +107,7 @@ export const generateFDAPDF = async (fda) => {
       colStyles = { 0: { cellWidth: 90 }, 1: { halign: 'center' }, 2: { halign: 'right' }, 3: { halign: 'right' } };
     }
 
-    // Calcul du sous-total basé sur price_devise pour PORT_DUES, sinon calcul classique
+   
     const subTotalCat = items.reduce((sum, i) => {
         if (cat.id === 'PORT_DUES') return sum + Number(i.price_devise || 0);
         return sum + (Number(i.grt_value || 1) * Number(i.rate || 0));
@@ -139,7 +139,7 @@ export const generateFDAPDF = async (fda) => {
     yPos = doc.lastAutoTable.finalY + 10;
   });
 
-  // ============== TOTAL GÉNÉRAL ==============
+ 
   if (yPos > 250) { doc.addPage(); yPos = 20; }
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
@@ -150,14 +150,14 @@ export const generateFDAPDF = async (fda) => {
 
   yPos += 15;
 
-  // ============== SIGNATURES ==============
+ 
   const sigImage = fda.createur?.type === 'directeur_general' ? sigDG : sigDO;
   if (sigImage) {
     const sigY = Math.min(yPos + 5, 230);
     doc.addImage(sigImage, 'PNG', 135, sigY, 50, 50);
   }
 
-  // ============== PIED DE PAGE ==============
+ 
   const pageHeight = doc.internal.pageSize.height;
   doc.setTextColor(150, 150, 150);
   doc.setFontSize(7);

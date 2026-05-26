@@ -20,12 +20,12 @@ function GestionGroupes() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   
-  // Modals
+ 
   const [showModal, setShowModal] = useState(false);
   const [modeEdition, setModeEdition] = useState(false);
   const [groupeSelectionne, setGroupeSelectionne] = useState(null);
   
-  // Form
+ 
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
   const [saving, setSaving] = useState(false);
@@ -87,11 +87,11 @@ function GestionGroupes() {
       };
 
       if (modeEdition) {
-        // Modification
+       
         await api.put(`groupes/${groupeSelectionne.id}/`, data);
         toast.success(t("Groupe modifié avec succès"));
       } else {
-        // Création
+       
         await api.post('groupes/', data);
         toast.success(t("Groupe créé avec succès"));
       }
@@ -158,7 +158,7 @@ function GestionGroupes() {
 
   return (
     <div className="flex flex-col gap-10 px-10 max-sm:px-4">
-      {/* Header */}
+      {}
       <div>
         <h1 className="font-bold text-2xl text-blackColor">
           {t("Gestion des groupes")}
@@ -168,10 +168,10 @@ function GestionGroupes() {
         </p>
       </div>
 
-      {/* Actions et recherche */}
+      {}
       <div className="bg-white rounded-lg shadow-sm p-6 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4 items-center justify-between">
-          {/* Search */}
+          {}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -185,7 +185,7 @@ function GestionGroupes() {
             </div>
           </div>
 
-          {/* Bouton Ajouter */}
+          {}
           <button
             onClick={ouvrirModalAjout}
             className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-buttonGradientPrimary transition-colors flex items-center gap-2"
@@ -196,7 +196,7 @@ function GestionGroupes() {
         </div>
       </div>
 
-      {/* Liste des groupes */}
+      {}
       {groupesFiltres.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm p-12 flex flex-col items-center justify-center gap-4">
           <Users className="w-16 h-16 text-gray-300" />
@@ -216,7 +216,7 @@ function GestionGroupes() {
               key={groupe.id}
               className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
             >
-              {/* Header de la carte */}
+              {}
               <div className="p-6 border-b border-gray-100">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
@@ -237,7 +237,7 @@ function GestionGroupes() {
                 </div>
               </div>
 
-              {/* Statistiques */}
+              {}
               <div className="p-6 bg-gray-50">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-2">
@@ -266,7 +266,7 @@ function GestionGroupes() {
                 </div>
               </div>
 
-              {/* Actions */}
+              {}
               <div className="p-4 border-t border-gray-100 flex items-center justify-end gap-2">
                 <button
                   onClick={() => ouvrirModalModification(groupe)}
@@ -288,11 +288,11 @@ function GestionGroupes() {
         </div>
       )}
 
-      {/* Modal Ajouter/Modifier */}
+      {}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-lg w-full">
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-800">
                 {modeEdition ? t("Modifier le groupe") : t("Créer un groupe")}
@@ -306,9 +306,9 @@ function GestionGroupes() {
               </button>
             </div>
 
-            {/* Body */}
+            {}
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
-              {/* Nom */}
+              {}
               <div>
                 <label htmlFor="nom" className="block text-sm font-medium text-gray-700 mb-2">
                   {t("Nom du groupe")} <span className="text-red-500">*</span>
@@ -325,7 +325,7 @@ function GestionGroupes() {
                 />
               </div>
 
-              {/* Description */}
+              {}
               <div>
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
                   {t("Description")}
@@ -340,7 +340,7 @@ function GestionGroupes() {
                 />
               </div>
 
-              {/* Actions */}
+              {}
               <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
                 <button
                   type="button"

@@ -19,7 +19,7 @@ function BonsCommande() {
   const [showModal, setShowModal] = useState(false);
   const [selectedBC, setSelectedBC] = useState(null);
 
-  // Rôles et Permissions
+ 
   const currentRole = getRole();
   const userData = getUserData();
 
@@ -35,7 +35,7 @@ function BonsCommande() {
   const peutSupprimer = ["Directeur Général", "Directeur des Opérations"].includes(currentRole);
 
   const peutModifier = (bc) => {
-    // Si déjà validé, seul le DG ou le Comptable peut modifier
+   
     if (bc.status === 'valide') return ["Comptable", "Directeur Général"].includes(currentRole);
     return true; 
   };
@@ -119,7 +119,7 @@ function BonsCommande() {
 
   return (
     <div className="flex flex-col gap-8 px-10 max-sm:px-4 py-6">
-      {/* HEADER */}
+      {}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl text-gray-900">{t("Bons de Commande")}</h1>
@@ -133,7 +133,7 @@ function BonsCommande() {
         </button>
       </div>
 
-      {/* RECHERCHE */}
+      {}
       <div className="bg-white rounded-xl shadow-sm p-4 relative border border-gray-100">
         <Search className="absolute left-7 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input
@@ -145,7 +145,7 @@ function BonsCommande() {
         />
       </div>
 
-      {/* TABLEAU */}
+      {}
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
         <table className="w-full text-left">
           <thead className="bg-gray-50 border-b text-[10px] uppercase font-bold text-gray-400 tracking-widest">
@@ -179,7 +179,7 @@ function BonsCommande() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex justify-center gap-1">
-                    {/* VALIDATION : Managers uniquement sur BC en attente */}
+                    {}
                     {bc.status === 'attente' && peutValider && (
                       <>
                         <button onClick={() => handleValidate(bc.id, 'valide')} className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors" title="Valider">

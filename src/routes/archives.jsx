@@ -11,7 +11,7 @@ import {
 import { getRole } from '@/lib/utils';
 import ArchiveModal from '@/components/ui/shared/ArchiveModal';
 
-// On définit la base URL pour les médias si l'API ne renvoie pas l'URL complète
+
 const API_URL = "http://127.0.0.1:8000"; 
 
 export default function Archives() {
@@ -23,7 +23,7 @@ export default function Archives() {
   const [showModal, setShowModal] = useState(false);
 
   const currentRole = getRole();
-  // DEBUG: console.log("Mon rôle actuel:", currentRole);
+ 
   const peutSupprimer = ["Directeur Général", "Directeur des Opérations"].includes(currentRole);
 
   useEffect(() => { fetchArchives(); }, []);
@@ -43,10 +43,10 @@ export default function Archives() {
   const handleDelete = async (id) => {
     if (!window.confirm(t("Voulez-vous vraiment supprimer ce document ?"))) return;
     try {
-      // On s'assure que l'ID est bien passé à l'URL
+     
       await api.delete(`archives/${id}/`); 
       toast.success(t("Document supprimé"));
-      // On met à jour la liste localement pour éviter un rechargement complet
+     
       setListe(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error(error);
@@ -54,7 +54,7 @@ export default function Archives() {
     }
   };
 
-  // Fonction pour forcer le téléchargement si l'attribut download échoue
+ 
   const handleDownload = async (fileUrl, fileName) => {
     try {
       const fullUrl = fileUrl.startsWith('http') ? fileUrl : `${API_URL}${fileUrl}`;
@@ -92,7 +92,7 @@ export default function Archives() {
 
   return (
     <div className="flex flex-col gap-8 px-10 max-sm:px-4 py-6">
-      {/* HEADER */}
+      {}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl text-gray-900 uppercase tracking-tighter">{t("Coffre-fort Numérique")}</h1>
@@ -106,7 +106,7 @@ export default function Archives() {
         </button>
       </div>
 
-      {/* FILTRES & RECHERCHE */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <div className="lg:col-span-3 bg-white rounded-2xl shadow-sm p-2 relative border border-gray-100 font-bold">
           <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -132,7 +132,7 @@ export default function Archives() {
         </div>
       </div>
 
-      {/* GRILLE DE DOCUMENTS */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {filtered.map((doc) => {
           const fileUrl = doc.fichier.startsWith('http') ? doc.fichier : `${API_URL}${doc.fichier}`;

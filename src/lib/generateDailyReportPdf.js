@@ -20,7 +20,7 @@ export function generateDailyReportPdf(reportData) {
   const textGrey = [100, 100, 100];
   const deepBlack = [30, 30, 30];
 
-  // --- 1. EN-TÊTE ---
+ 
   try {
     doc.addImage(logoImg, 'PNG', 14, 10, 35, 20);
   } catch (e) { console.warn("Logo manquant"); }
@@ -40,7 +40,7 @@ export function generateDailyReportPdf(reportData) {
   doc.setLineWidth(0.5);
   doc.line(40, 30, pageWidth - 40, 30);
 
-  // --- 2. TITRE DU RAPPORT ---
+ 
   doc.setFontSize(18);
   doc.setTextColor(deepBlack[0], deepBlack[1], deepBlack[2]);
   doc.setFont('helvetica', 'bold');
@@ -53,7 +53,7 @@ export function generateDailyReportPdf(reportData) {
   doc.setFont('helvetica', 'normal');
   doc.text(reportData.date || '', pageWidth / 2, 60, { align: 'center' });
 
-  // --- 3. DÉTAILS DES MOUVEMENTS (TABLEAU) ---
+ 
   const clients = reportData.colonnes || [];
   const dayLine = reportData.lignes ? reportData.lignes[0] : null;
   const tableBody = [];
@@ -101,8 +101,8 @@ export function generateDailyReportPdf(reportData) {
 
   let currentY = doc.lastAutoTable.finalY + 12;
 
-  // --- 4. RÉSUMÉ (AVEC GESTION DU OVERFLOW) ---
-  // Sécurité pour éviter de commencer le résumé tout en bas de page
+ 
+ 
   if (currentY > pageHeight - 60) {
     doc.addPage();
     currentY = 25;
@@ -111,44 +111,44 @@ export function generateDailyReportPdf(reportData) {
   doc.setDrawColor(220, 220, 220).setLineWidth(0.2);
   doc.line(margin, currentY - 5, pageWidth - margin, currentY - 5);
 
-  // --- TOTAL DISCHARGED / OUT OF STOCK ---
+ 
   doc.setFont('helvetica', 'bold').setFontSize(12).setTextColor(deepBlack[0], deepBlack[1], deepBlack[2]);
   const totalLabel = `${isSortie ? 'TOTAL OUT OF STOCK' : 'TOTAL DISCHARGING CARGO'}: ${reportData.totalDischarged || '0'}`;
   
-  // Split du texte pour s'adapter à la largeur
+ 
   const splitTotal = doc.splitTextToSize(totalLabel, maxWidth);
   doc.text(splitTotal, margin, currentY);
   
-  // On décale Y selon le nombre de lignes (interligne de 6mm)
+ 
   currentY += (splitTotal.length * 6) + 2;
 
-  // --- REMAINING ON BOARD ---
+ 
   doc.setFont('helvetica', 'bold').setTextColor(smtlaBlue[0], smtlaBlue[1], smtlaBlue[2]);
   const robLabel = `REMAINING ON BOARD: ${reportData.remainingOnBoard || '---'}`;
   
   const splitRob = doc.splitTextToSize(robLabel, maxWidth);
   doc.text(splitRob, margin, currentY);
 
-  // --- 5. SIGNATURE ---
+ 
   const signatureY = pageHeight - 65; 
   const signatureText = "Directeur des Opérations";
-  // Calcul dynamique de X pour aligner le texte de signature à droite
+ 
   const signatureX = pageWidth - doc.getTextWidth(signatureText) - 25;
   
   doc.setFontSize(11).setTextColor(deepBlack[0], deepBlack[1], deepBlack[2]).setFont('helvetica', 'bold');
   doc.text(signatureText, signatureX, signatureY);
 
   try {
-    // Signature positionnée sous le texte "Directeur des Opérations"
+   
     doc.addImage(sigDO, 'PNG', signatureX, signatureY + 2, 45, 45);
   } catch (e) { console.warn("Signature manquante"); }
 
-  // --- 6. PIED DE PAGE ---
+ 
   doc.setFontSize(7).setTextColor(150, 150, 150).setFont('helvetica', 'normal');
   const footerText = "Siège social: SOCO BMCI N°0190 Moughata de Tevragh Zeina - Nouakchott - Mauritanie";
   doc.text(footerText, pageWidth / 2, pageHeight - 10, { align: 'center' });
 
-  // Sauvegarde
+ 
   const fileName = `Daily_Report_${isSortie ? 'Sorties' : 'Entrees'}_${reportData.date}.pdf`;
   doc.save(fileName);
 }

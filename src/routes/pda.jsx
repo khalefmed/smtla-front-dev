@@ -12,7 +12,7 @@ import { generatePDAPDF } from '@/lib/generatePdaPdf';
 function PDA() {
   const { t } = useTranslation();
   const [liste, setListe] = useState([]);
-  const [clients, setClients] = useState([]); // État pour la liste des clients
+  const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +25,7 @@ function PDA() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      // Récupération simultanée des PDA et des Clients
+     
       const [resPDA, resClients] = await Promise.all([
         api.get("pdas/"),
         api.get("clients/")
@@ -67,7 +67,7 @@ function PDA() {
     const q = search.toLowerCase();
     return liste.filter(p => 
       p.pda_number?.toLowerCase().includes(q) || 
-      p.client_nom?.toLowerCase().includes(q) || // Utilisation de client_nom du backend
+      p.client_nom?.toLowerCase().includes(q) ||
       p.vessel_name?.toLowerCase().includes(q)
     );
   }, [liste, search]);
@@ -104,7 +104,7 @@ function PDA() {
             <tr>
               <th className="px-6 py-4">{t("PDA N° / Client")}</th>
               <th className="px-6 py-4">{t("Navire / Port")}</th>
-              {/* <th className="px-6 py-4 text-right">{t("Estimation Totale")}</th> */}
+              {}
               <th className="px-6 py-4 text-center">{t("Actions")}</th>
             </tr>
           </thead>
@@ -135,7 +135,7 @@ function PDA() {
                 </td> */}
                 <td className="px-6 py-4">
                   <div className="flex justify-center gap-1">
-                    {/* MODIFICATION */}
+                    {}
                     <button 
                       onClick={() => { setSelectedPDA(pda); setShowModal(true); }} 
                       className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
@@ -144,7 +144,7 @@ function PDA() {
                       <Edit3 className="w-5 h-5" />
                     </button>
 
-                    {/* PDF (à implémenter) */}
+                    {}
                     <button  onClick={() => generatePDAPDF(pda)}
                       className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                       title={t("Générer PDF")}
@@ -152,7 +152,7 @@ function PDA() {
                       <FileText className="w-5 h-5" />
                     </button>
 
-                    {/* SUPPRESSION (Seulement DG) */}
+                    {}
                     {currentRole === 'Directeur Général' && (
                        <button 
                         onClick={() => handleDelete(pda.id)} 
@@ -173,7 +173,7 @@ function PDA() {
       {showModal && (
         <PDAModal 
           pda={selectedPDA} 
-          clients={clients} // Transmission de la liste des clients au modal
+          clients={clients}
           onClose={() => setShowModal(false)} 
           onSave={handleSave} 
         />

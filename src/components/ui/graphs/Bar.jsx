@@ -22,10 +22,10 @@ ChartJS.register(
 );
 
 export const options = {
-//   animation: {
-//     duration : 2500,
-// },
-  // responsive: true,
+
+
+
+ 
   plugins: {
     legend: {
       position: 'top',
@@ -53,13 +53,13 @@ export const options = {
 export default function BarComponent({colis}) {
   const { t, i18n } = useTranslation();
 
-  // const labels = [t('step1'), t('step2'), t('step3'), t('step4')];
-  // const labelsValues = [
-  //   colis.step1 != null ? colis.step1 : 0,
-  //   colis.step2 != null ? colis.step2 : 0,
-  //   colis.step3 != null ? colis.step3 : 0,
-  //   colis.step4 != null ? colis.step4 : 0,
-  // ];
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
   const data = {
     labels,

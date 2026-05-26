@@ -8,7 +8,7 @@ import {
   ArrowDownCircle, ArrowUpCircle 
 } from 'lucide-react';
 
-// Import des fonctions de génération PDF
+
 import { generateGeneralReportPdf } from '@/lib/generateGeneralReportPdf';
 import { generateDailyReportPdf } from '@/lib/generateDailyReportPdf';
 
@@ -32,7 +32,7 @@ function Rapports() {
     if (!reportData) return null;
 
     if (activeTab === 'general') {
-      // On ne garde que les colonnes (clients) qui ont au moins une valeur non vide dans les lignes ou le total
+     
       const activeColumns = reportData.colonnes?.filter(client => {
         const hasActivityInLines = reportData.lignes?.some(
           l => l.clients[client] && l.clients[client] !== "-"
@@ -43,7 +43,7 @@ function Rapports() {
 
       return { ...reportData, colonnes: activeColumns };
     } else {
-      // Vue journalière : on ne garde que les clients qui ont des mouvements listés
+     
       const activeClients = reportData.details_par_client?.filter(
         item => item.mouvements && item.mouvements.length > 0
       ) || [];
@@ -84,7 +84,7 @@ function Rapports() {
 
     if (activeTab === 'general') {
       generateGeneralReportPdf({
-        ...filteredData, // On utilise les données filtrées ici aussi !
+        ...filteredData,
         title: isEntree ? "RAPPORT GÉNÉRAL DES ENTRÉES" : "REPORT GENERAL (SORTIES)",
         date: `Période: ${startDate} au ${endDate}`,
         navire: vessel,
@@ -117,7 +117,7 @@ function Rapports() {
 
   return (
     <div className="flex flex-col gap-6 px-10 max-sm:px-4 py-6">
-      {/* Header & Tabs */}
+      {}
       <div className="flex flex-wrap justify-between items-center gap-4">
         <div>
           <h1 className="font-bold text-2xl text-gray-900">{t("Reporting Logistique")}</h1>
@@ -129,7 +129,7 @@ function Rapports() {
         </div>
       </div>
 
-      {/* Filters Box */}
+      {}
       <div className="bg-white rounded-3xl shadow-sm p-6 border border-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-end">
           <div className="space-y-2">
@@ -171,7 +171,7 @@ function Rapports() {
         </div>
       </div>
 
-      {/* Results Area */}
+      {}
       {filteredData ? (
         <div className="bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100">
            <div className="p-5 bg-gray-50 border-b flex justify-between items-center">

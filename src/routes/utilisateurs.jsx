@@ -23,7 +23,7 @@ function GestionUtilisateurs() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   
-  // Modals
+ 
   const [showAjouterModal, setShowAjouterModal] = useState(false);
   const [showRolesModal, setShowRolesModal] = useState(false);
   const [utilisateurSelectionne, setUtilisateurSelectionne] = useState(null);
@@ -51,11 +51,11 @@ function GestionUtilisateurs() {
     try {
       setLoading(true);
 
-      // Récupérer le profil de l'utilisateur connecté
+     
       const profilResponse = await api.get('profil/');
       const profil = profilResponse.data;
 
-      // Trouver les groupes où l'utilisateur est admin
+     
       const groupesAvecAdmin = profil.groupes_info?.filter(g => 
         g.roles.includes('admin')
       ) || [];
@@ -67,12 +67,12 @@ function GestionUtilisateurs() {
 
       setGroupesAdmin(groupesAvecAdmin);
       
-      // Sélectionner le premier groupe par défaut
+     
       if (groupesAvecAdmin.length > 0) {
         setGroupeSelectionne(groupesAvecAdmin[0]);
       }
 
-      // Récupérer tous les utilisateurs
+     
       const utilisateursResponse = await api.get('utilisateurs/');
       setUtilisateurs(utilisateursResponse.data);
 
@@ -99,7 +99,7 @@ function GestionUtilisateurs() {
       await api.post('utilisateurs-groupes/assigner/', {
         utilisateur_id: utilisateurId,
         groupe_id: groupeSelectionne.id,
-        roles: ['numerisation'] // Rôle par défaut
+        roles: ['numerisation']
       });
 
       toast.success(t("Utilisateur ajouté au groupe"));
@@ -135,7 +135,7 @@ function GestionUtilisateurs() {
   const ouvrirModalRoles = (utilisateur) => {
     setUtilisateurSelectionne(utilisateur);
     
-    // Trouver les rôles actuels de l'utilisateur dans le groupe
+   
     const rolesActuels = utilisateur.groupes_info?.find(
       g => g.id === groupeSelectionne.id
     )?.roles || [];
@@ -170,7 +170,7 @@ function GestionUtilisateurs() {
     }
   };
 
-  // Filtrer les utilisateurs déjà dans le groupe
+ 
   const utilisateursDisponibles = utilisateurs.filter(u => 
     !utilisateursGroupe.some(ug => ug.id === u.id)
   );
@@ -203,7 +203,7 @@ function GestionUtilisateurs() {
 
   return (
     <div className="flex flex-col gap-10 px-10 max-sm:px-4">
-      {/* Header */}
+      {}
       <div>
         <h1 className="font-bold text-2xl text-blackColor">
           {t("Gestion des utilisateurs")}
@@ -213,7 +213,7 @@ function GestionUtilisateurs() {
         </p>
       </div>
 
-      {/* Sélection du groupe */}
+      {}
       {groupesAdmin.length > 1 && (
         <div className="bg-white rounded-lg shadow-sm p-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -236,10 +236,10 @@ function GestionUtilisateurs() {
         </div>
       )}
 
-      {/* Actions et recherche */}
+      {}
       <div className="bg-white rounded-lg shadow-sm p-6 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4 items-center justify-between">
-          {/* Search */}
+          {}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -253,7 +253,7 @@ function GestionUtilisateurs() {
             </div>
           </div>
 
-          {/* Bouton Ajouter */}
+          {}
           <button
             onClick={() => setShowAjouterModal(true)}
             className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-buttonGradientPrimary transition-colors flex items-center gap-2"
@@ -264,7 +264,7 @@ function GestionUtilisateurs() {
         </div>
       </div>
 
-      {/* Liste des utilisateurs */}
+      {}
       {utilisateursFiltres.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm p-12 flex flex-col items-center justify-center gap-4">
           <Users className="w-16 h-16 text-gray-300" />
@@ -374,7 +374,7 @@ function GestionUtilisateurs() {
         </div>
       )}
 
-      {/* Modal Ajouter utilisateur */}
+      {}
       {showAjouterModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
@@ -428,7 +428,7 @@ function GestionUtilisateurs() {
         </div>
       )}
 
-      {/* Modal Modifier rôles */}
+      {}
       {showRolesModal && utilisateurSelectionne && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full">

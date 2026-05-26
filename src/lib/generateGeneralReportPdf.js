@@ -8,12 +8,12 @@ import logoImg from '@/assets/logo.png';
  */
 const formatNombre = (valeur) => {
   if (valeur === undefined || valeur === null || valeur === '' || isNaN(valeur)) {
-    return valeur; // Retourne la chaîne vide ou le texte tel quel s'il n'est pas numérique
+    return valeur;
   }
   const num = Number(valeur);
   let [entier, decimal] = num.toFixed(2).split('.');
   entier = entier.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  // On n'affiche les décimales que si elles sont différentes de 00
+ 
   return decimal === '00' ? entier : `${entier},${decimal}`;
 };
 
@@ -27,7 +27,7 @@ export function generateGeneralReportPdf(reportData) {
   const textGrey = [100, 100, 100];
   const deepBlack = [30, 30, 30];
 
-  // --- 1. EN-TÊTE ---
+ 
   try {
     doc.addImage(logoImg, 'PNG', 14, 10, 35, 20);
   } catch (e) {
@@ -49,7 +49,7 @@ export function generateGeneralReportPdf(reportData) {
   doc.setLineWidth(0.5);
   doc.line(60, 30, pageWidth - 60, 30);
 
-  // Titre du Rapport
+ 
   doc.setFillColor(lightBlue[0], lightBlue[1], lightBlue[2]);
   doc.roundedRect((pageWidth / 2) - 30, 35, 60, 10, 2, 2, 'F');
   doc.setFontSize(14);
@@ -66,18 +66,18 @@ export function generateGeneralReportPdf(reportData) {
   doc.setTextColor(textGrey[0], textGrey[1], textGrey[2]);
   doc.text(`NIF: ${reportData.nif || '01328556'}`, 14, 65);
 
-  // --- 2. TABLEAU PROFESSIONNEL ---
+ 
   const tableHead = [['DÉSIGNATION', ...reportData.colonnes.map(c => c.toUpperCase())]];
 
   const tableBody = reportData.lignes.map(ligne => {
     return [
       { content: ligne.label, styles: { fontStyle: 'bold', fillColor: lightBlue, textColor: smtlaBlue } },
-      // Application du formatage sur chaque cellule de données
+     
       ...reportData.colonnes.map(client => formatNombre(ligne.clients[client]) || '')
     ];
   });
 
-  // Ligne de TOTAL
+ 
   if (reportData.total) {
     const totalRow = [
       { content: 'TOTAL GLOBAL', styles: { fontStyle: 'bold', fillColor: smtlaBlue, textColor: [255, 255, 255] } },
@@ -98,7 +98,7 @@ export function generateGeneralReportPdf(reportData) {
       fontSize: 8, 
       cellPadding: 4, 
       valign: 'middle', 
-      halign: 'center', // Centré pour les rapports de données
+      halign: 'center',
       overflow: 'linebreak',
       lineColor: [220, 220, 220],
       lineWidth: 0.1
@@ -111,14 +111,14 @@ export function generateGeneralReportPdf(reportData) {
       minCellHeight: 12
     },
     columnStyles: {
-      0: { cellWidth: 40, halign: 'left' }, // La désignation reste alignée à gauche
+      0: { cellWidth: 40, halign: 'left' },
     },
     alternateRowStyles: {
       fillColor: [250, 250, 250]
     }
   });
 
-  // --- 3. PIED DE PAGE ---
+ 
   const footerY = pageHeight - 15;
   doc.setFontSize(8);
   doc.setTextColor(textGrey[0], textGrey[1], textGrey[2]);

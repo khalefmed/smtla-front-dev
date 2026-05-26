@@ -93,7 +93,7 @@ const handleExportPdf = (eb) => {
     try {
       toast.loading(t("Génération du PDF..."), { id: 'pdf-gen' });
       
-      // Appel de votre fonction importée
+     
       generateEbPdf(eb);
       
       toast.success(t("PDF généré avec succès"), { id: 'pdf-gen' });
@@ -205,7 +205,7 @@ const handleExportPdf = (eb) => {
 
               <div className="space-y-3 mb-6 text-sm font-bold">
                 <div className="flex items-center gap-2 text-gray-700"><UserCheck className="w-4 h-4 text-buttonGradientPrimary" /> {eb.nom_demandeur}</div>
-                {/* <div className="flex items-center gap-2 text-gray-500 font-medium"><User className="w-4 h-4" /> {eb.client_beneficiaire_nom}</div> */}
+                {}
                 <div className="flex items-center gap-2 text-gray-500 font-medium"><Ship className="w-4 h-4" /> {eb.navire}</div>
               </div>
 
@@ -245,7 +245,7 @@ function PreviewModal({ expression, onClose }) {
             <div><p className="text-[10px] font-bold text-purple-400 uppercase mb-1">Affectation</p><p className="font-bold text-sm">{expression.affectation}</p></div>
           </div>
           <div className="grid grid-cols-3 gap-6 pb-6 border-b border-gray-100">
-            {/* <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Client</p><p className="font-bold">{expression.client_beneficiaire_nom}</p></div> */}
+            {}
             <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Navire</p><p className="font-bold">{expression.navire}</p></div>
             <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-1">BL / AWB</p><p className="font-mono text-sm font-bold">{expression.bl_awb}</p></div>
             <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-1">ETA</p><p className="font-bold">{new Date(expression.eta).toLocaleDateString()}</p></div>

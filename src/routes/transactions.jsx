@@ -56,7 +56,7 @@ function Transactions() {
     }
   };
 
-  /* --------------------- FILTRAGE COMPLET --------------------- */
+  
   const applyFilters = () => {
     let results = [...liste];
 
@@ -84,7 +84,7 @@ function Transactions() {
     if (format === "excel") exportExcel();
   };
 
-  /* --------------------- EXPORT PDF --------------------- */
+  
   const exportPDF = () => {
     const doc = new jsPDF();
     doc.text("Liste des Transactions", 14, 16);
@@ -110,7 +110,7 @@ function Transactions() {
     doc.save("transactions.pdf");
   };
 
-  /* --------------------- EXPORT EXCEL --------------------- */
+  
   const exportExcel = () => {
     const rows = filteredListe.map((item) => ({
       Montant: item.type.is_debiteur ? `- ${item.montant} MRU` : `+ ${item.montant} MRU`,
@@ -143,7 +143,7 @@ function Transactions() {
       <div className="w-full px-6 py-4 bg-white rounded-lg flex flex-row justify-between">
         <div className="flex flex-row gap-2">
 
-          {/* FILTRE TYPE */}
+          {}
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
@@ -155,7 +155,7 @@ function Transactions() {
             ))}
           </select>
 
-          {/* FILTRE COMPTE */}
+          {}
           <select
             value={compte}
             onChange={(e) => setCompte(e.target.value)}
@@ -167,7 +167,7 @@ function Transactions() {
             ))}
           </select>
 
-          {/* DATE DEBUT */}
+          {}
           <input
             type="date"
             value={dateDebut}
@@ -175,7 +175,7 @@ function Transactions() {
             className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none"
           />
 
-          {/* DATE FIN */}
+          {}
           <input
             type="date"
             value={dateFin}
@@ -183,7 +183,7 @@ function Transactions() {
             className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none"
           />
 
-          {/* EXPORT */}
+          {}
           <select
             onChange={(e) => handleExport(e.target.value)}
             className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none text-blackColor"

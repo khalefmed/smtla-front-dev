@@ -10,7 +10,7 @@ import DevisModal from '@/components/ui/shared/devisModal';
 import { generateDevisPDF } from '@/lib/generateDevisPdf';
 import { getRole } from '@/lib/utils';
 
-// --- COMPOSANT DE VUE DÉTAILLÉE ---
+
 function DevisPreviewModal({ devis, onClose }) {
   if (!devis) return null;
   return (
@@ -29,7 +29,7 @@ function DevisPreviewModal({ devis, onClose }) {
         </div>
         
         <div className="p-8 space-y-6 overflow-y-auto max-h-[75vh]">
-          {/* Info Logistique Étendue */}
+          {}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
             <div>
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Navire / Type</p>
@@ -58,7 +58,7 @@ function DevisPreviewModal({ devis, onClose }) {
             </div>
           </div>
 
-          {/* Description & Commentaire */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {devis.description && (
               <div className="flex gap-2">
@@ -77,7 +77,7 @@ function DevisPreviewModal({ devis, onClose }) {
             )}
           </div>
 
-          {/* Table Items */}
+          {}
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-gray-400 uppercase text-[10px] font-bold border-b">
@@ -99,7 +99,7 @@ function DevisPreviewModal({ devis, onClose }) {
             </tbody>
           </table>
 
-          {/* Totaux */}
+          {}
           <div className="flex justify-end pt-4 border-t">
             <div className="w-full space-y-2">
                 <div className="flex justify-between text-sm">

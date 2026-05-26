@@ -21,7 +21,7 @@ export function generateNoteFraisPdf(note) {
   const orangeFill = [248, 192, 80];
   const blackText = [0, 0, 0];
 
-  // --- 1. CALCULS ---
+ 
   const sommeItems = note.items?.reduce((acc, curr) => acc + Number(curr.montant || 0), 0) || 0;
   const tvaFacteur = note.tva ? 0.16 : 0; 
   const montantHT = sommeItems;
@@ -31,7 +31,7 @@ export function generateNoteFraisPdf(note) {
   const dateFormatted = note.date_creation ? new Date(note.date_creation).toLocaleDateString('fr-FR') : new Date().toLocaleDateString('fr-FR');
   const etaFormatted = eb.eta ? new Date(eb.eta).toLocaleString('fr-FR') : '-';
 
-  // --- 2. EN-TÊTE ---
+ 
   try {
     doc.addImage(logo, 'PNG', 14, 10, 40, 20);
   } catch (e) { console.warn("Logo manquant"); }
@@ -46,7 +46,7 @@ export function generateNoteFraisPdf(note) {
   doc.setFontSize(8);
   doc.text(`EB Source: ${eb.reference || 'N/A'}`, pageWidth - 14, 30, { align: 'right' });
 
-  // --- 3. BLOCS INFOS ---
+ 
   autoTable(doc, {
     startY: 35,
     margin: { right: 110 },
@@ -75,7 +75,7 @@ export function generateNoteFraisPdf(note) {
     columnStyles: { 0: { fontStyle: 'bold', cellWidth: 30, fillColor: [245, 245, 245] } }
   });
 
-  // --- 4. TABLEAU DES ITEMS ---
+ 
   const currencyLabel = note.devise || 'MRU';
   const tableHead = [['Désignation', 'Type', 'Montant']];
   const tableBody = note.items?.map(item => [
@@ -103,7 +103,7 @@ export function generateNoteFraisPdf(note) {
     }
   });
 
-  // --- 5. RÉCAPITULATIF FINANCIER ---
+ 
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 5,
     body: [
@@ -126,7 +126,7 @@ export function generateNoteFraisPdf(note) {
     }
   });
 
-  // --- 6. SIGNATURES (DYNAMIQUE) ---
+ 
   let finalYSignatures = doc.lastAutoTable.finalY + 10;
 
   if (finalYSignatures > pageHeight - 70) {
@@ -155,17 +155,17 @@ export function generateNoteFraisPdf(note) {
           } else if (data.column.index === 1) {
             doc.addImage(signatureComptable, 'PNG', posX, posY, imgSize, imgSize);
           }
-        } catch (e) { /* Signature absente */ }
+        } catch (e) {  }
       }
     }
   });
 
-  // --- 7. TRAÇABILITÉ (DYNAMIQUE) ---
-  // On place le texte 5mm sous le tableau de signatures
+ 
+ 
   let yTrace = doc.lastAutoTable.finalY + 5;
   
-  // Si le texte de traçabilité risque de dépasser le pied de page social, 
-  // on le bloque à une position maximum
+ 
+ 
   const maxTraceY = pageHeight - 25;
   if (yTrace > maxTraceY) {
     yTrace = maxTraceY;
@@ -187,7 +187,7 @@ export function generateNoteFraisPdf(note) {
   doc.text(`Note établie par : ${createur}`, 14, yTrace);
   doc.text(`Document généré le : ${dateGen}`, 14, yTrace + 4);
 
-  // --- 8. PIED DE PAGE FIXE (SIÈGE SOCIAL) ---
+ 
   doc.setFontSize(7);
   doc.setTextColor(150, 150, 150);
   doc.setFont('helvetica', 'normal');

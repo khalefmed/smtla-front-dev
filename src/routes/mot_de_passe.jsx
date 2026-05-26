@@ -2,7 +2,7 @@ import { api } from '@/lib/api';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { Loader2 } from 'lucide-react'; // Import d'une icône de chargement
+import { Loader2 } from 'lucide-react';
 
 export const MotDePasse = () => {
     const { t } = useTranslation();
@@ -10,12 +10,12 @@ export const MotDePasse = () => {
     const [ancien, setAncien] = useState("");
     const [nouveau, setNouveau] = useState("");
     const [confirmation, setConfirmation] = useState("");
-    const [loading, setLoading] = useState(false); // État pour le chargement
+    const [loading, setLoading] = useState(false);
 
     const modifier = async (e) => {
         e.preventDefault();
         
-        // Validation locale
+       
         if (!ancien || !nouveau || !confirmation) {
             toast.error(t('Veuillez remplir tous les champs'));
             return;
@@ -27,7 +27,7 @@ export const MotDePasse = () => {
         }
 
         try {
-            setLoading(true); // Activer le loading
+            setLoading(true);
             const response = await api.put(
                 `modifier-mot-de-passe/`,
                 {
@@ -36,28 +36,28 @@ export const MotDePasse = () => {
                 }
             );
 
-            // Succès
+           
             toast.success(t('Mot de passe modifié avec succès !'));
             
-            // Réinitialiser les champs
+           
             setAncien("");
             setNouveau("");
             setConfirmation("");
 
-            // Optionnel : Rediriger ou déconnecter après un délai
-            // setTimeout(() => { window.location.reload(); }, 2000);
+           
+           
 
         } catch (exception) {
             console.log(exception);
             if (exception.response && exception.response.status === 400) {
-                // Message spécifique si l'API renvoie une erreur 400 (ex: mauvais ancien mot de passe)
+               
                 const errorMsg = exception.response.data?.detail || t('Ancien mot de passe incorrect');
                 toast.error(errorMsg);
             } else {
                 toast.error(t("Une erreur s'est produite lors de la modification"));
             }
         } finally {
-            setLoading(false); // Désactiver le loading quoi qu'il arrive
+            setLoading(false);
         }
     }
 
@@ -106,7 +106,7 @@ export const MotDePasse = () => {
                 >
                     {loading ? (
                         <div className="flex items-center gap-2">
-                            {/* L'icône avec la classe animate-spin de Tailwind */}
+                            {}
                             <Loader2 className="animate-spin h-5 w-5" />
                             <span>{t("Chargement...")}</span>
                         </div>

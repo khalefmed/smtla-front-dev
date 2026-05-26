@@ -1,9 +1,9 @@
-// Installation requise: npm install jspdf jspdf-autotable
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import logo from '@/assets/logo.png';
 
-// Import des signatures/cachets
+
 import sigDG from '@/assets/signatures/directeur_general.png';
 import sigDO from '@/assets/signatures/directeur_operations.png';
 import sigComptable from '@/assets/signatures/comptable.png';
@@ -16,12 +16,12 @@ const formatPrix = (valeur) => {
   if (valeur === undefined || valeur === null || isNaN(valeur)) return '0,00';
   const num = Number(valeur);
   let [entier, decimal] = num.toFixed(2).split('.');
-  // Ajoute un espace standard tous les 3 chiffres
+ 
   entier = entier.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   return `${entier},${decimal}`;
 };
 
-// Fonction de conversion de nombre en lettres françaises
+
 const numberToFrenchWords = (num) => {
   if (num === 0) return 'zéro';
   if (!num || isNaN(num)) return '';
@@ -57,7 +57,7 @@ const numberToFrenchWords = (num) => {
     return hundStr + (hundred >= 1 ? 'cent' + centS : '') + s;
   };
 
-  // Gestion des millions et milliers
+ 
   let million = Math.floor(num / 1000000);
   let thousand = Math.floor((num % 1000000) / 1000);
   let rest = Math.floor(num % 1000);
@@ -76,7 +76,7 @@ export const generateFacturePDF = async (facture) => {
   const lightBlue = [15, 117, 188]; 
   let yPos = 15;
   
-  // ============== EN-TÊTE ==============
+ 
   doc.addImage(logo, 'PNG', 14, yPos - 10, 30, 15);
   doc.setFontSize(20);
   doc.setTextColor(...lightBlue);
@@ -111,7 +111,7 @@ export const generateFacturePDF = async (facture) => {
   
   yPos += 10;
   
-  // ============== SECTION CLIENT ==============
+ 
   doc.setFillColor(...blueHeader);
   doc.rect(14, yPos, 90, 7, 'F');
   doc.rect(105, yPos, 90, 7, 'F');
@@ -189,7 +189,7 @@ export const generateFacturePDF = async (facture) => {
   
   yPos += 38;
   
-  // ============== TABLEAU ==============
+ 
   const currencyLabel = facture.devise || 'MRU';
   const tableData = (facture.items || []).map(item => [
     item.libelle,
@@ -214,7 +214,7 @@ export const generateFacturePDF = async (facture) => {
   
   yPos = doc.lastAutoTable.finalY + 5;
   
-  // ============== TOTAUX ==============
+ 
   const xTotaux = 130;
   doc.setFont('helvetica', 'bold');
   doc.text('HT TOTAL PRICE', xTotaux, yPos + 4);
@@ -238,12 +238,12 @@ export const generateFacturePDF = async (facture) => {
 
   yPos += 15;
 
-  // ============== SIGNATURES & CACHETS ==============
+ 
   doc.setFont('helvetica', 'bold');
   doc.text('Operations Department', 30, yPos);
   doc.text('Financial Department', 140, yPos);
   
-  if (facture.status === 'valide' && facture.valideur) {
+  if ((facture.status === 'valide' || facture.status === 'paye' ) && facture.valideur) {
     let signatureImg = null;
     switch (facture.valideur.type) {
       case 'directeur_general': signatureImg = sigDG; break;
@@ -259,7 +259,7 @@ export const generateFacturePDF = async (facture) => {
   
   yPos += 50;
 
-  // ============== COMMENTAIRE ==============
+ 
   if (facture.commentaire) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
@@ -274,14 +274,14 @@ export const generateFacturePDF = async (facture) => {
     yPos += (splitRemarks.length * 5) + 10;
   }
   
-  // ============== INFOS BANCAIRES ==============
+ 
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.text('Coordonnés bancaires :', 14, yPos);
   doc.setFont('helvetica', 'normal');
   doc.text('Banque : BMCI | IBAN : MR1300010000010485740015102 | SWIFT : MBICMRMRXXX', 14, yPos + 5);
   
-  // ============== INFOS CRÉATION ==============
+ 
   yPos += 15;
   doc.setFontSize(8);
   doc.setTextColor(120, 120, 120);
@@ -295,7 +295,7 @@ export const generateFacturePDF = async (facture) => {
   doc.text(`Created by : ${createur}`, 14, yPos);
   doc.text(`Document generated on : ${dateGen}`, 14, yPos + 4);
 
-  // ============== PIED DE PAGE ==============
+ 
   const pageHeight = doc.internal.pageSize.height;
   doc.setFontSize(7);
   doc.setTextColor(150, 150, 150);

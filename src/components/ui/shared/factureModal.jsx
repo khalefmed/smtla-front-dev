@@ -54,7 +54,7 @@ function FactureModal({ facture, clients = [], onClose, onSave }) {
     }
   }, [facture]);
 
-  // LOGIQUE DE NETTOYAGE DES DATES AVANT ENVOI
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     const cleanedData = {
@@ -96,7 +96,7 @@ function FactureModal({ facture, clients = [], onClose, onSave }) {
         </div>
 
         <form onSubmit={handleSubmit} className="overflow-y-auto p-8 space-y-8">
-          {/* SECTION CLIENT & NAVIRE */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-gray-400">Client</label>
@@ -121,7 +121,7 @@ function FactureModal({ facture, clients = [], onClose, onSave }) {
             </div>
           </div>
 
-          {/* SECTION LOGISTIQUE (REQUIRED RETIRÉ POUR ETA/ETD) */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-indigo-50/40 p-6 rounded-2xl border border-indigo-100">
             <div className="space-y-1">
                 <label className="text-[10px] font-bold text-indigo-400 uppercase">Port d'arrivée</label>
@@ -157,7 +157,7 @@ function FactureModal({ facture, clients = [], onClose, onSave }) {
             </div>
           </div>
 
-          {/* SECTION PRESTATIONS AVEC LABELS */}
+          {}
           <div className="space-y-4">
             <div className="flex justify-between items-center border-b pb-2">
               <h3 className="font-bold text-gray-800 flex items-center gap-2 uppercase text-sm tracking-wider">
@@ -166,7 +166,7 @@ function FactureModal({ facture, clients = [], onClose, onSave }) {
               <button type="button" onClick={addItem} className="text-xs font-bold text-indigo-600 hover:bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100 transition-all">+ AJOUTER LIGNE</button>
             </div>
 
-            {/* EN-TÊTE DES LIGNES PRESTATIONS */}
+            {}
             <div className="flex gap-4 px-2">
               <div className="flex-1 text-[10px] font-bold text-gray-400 uppercase">Désignation / Service</div>
               <div className="w-32 text-[10px] font-bold text-gray-400 uppercase text-right">Prix Unitaire</div>
@@ -192,14 +192,14 @@ function FactureModal({ facture, clients = [], onClose, onSave }) {
             </div>
           </div>
 
-          {/* COMMENTAIRES */}
+          {}
           <div className="pt-4">
             <label className="text-xs font-bold uppercase text-gray-400 flex items-center gap-1"><MessageSquare className="w-3 h-3"/> Commentaires (Sur le PDF)</label>
             <textarea value={formData.commentaire} onChange={(e) => setFormData({...formData, commentaire: e.target.value})} rows="2" placeholder="Conditions de paiement..." className="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 text-sm mt-2"></textarea>
           </div>
         </form>
 
-        {/* FOOTER */}
+        {}
         <div className="p-8 border-t bg-gray-50 flex flex-wrap justify-between items-center gap-6">
           <div className="flex gap-6 items-center">
             <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-600 text-xs">

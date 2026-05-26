@@ -76,7 +76,7 @@ function Clients() {
     setShowModal(true);
   };
 
-  // Filtrage côté client (Nom, Téléphone, Email ou NIF)
+ 
   const filteredClients = useMemo(() => {
     const q = search.toLowerCase();
     return liste.filter((c) => 
@@ -90,7 +90,7 @@ function Clients() {
   return (
     <div className="flex flex-col gap-8 px-10 max-sm:px-4 py-6">
       
-      {/* Header */}
+      {}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl text-blackColor">{t("Annuaire Clients")}</h1>
@@ -105,7 +105,7 @@ function Clients() {
         </button>
       </div>
 
-      {/* Barre de Recherche */}
+      {}
       <div className="bg-white rounded-lg shadow-sm p-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -119,7 +119,7 @@ function Clients() {
         </div>
       </div>
 
-      {/* Tableau des Clients */}
+      {}
       <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
         <table className="w-full text-left border-collapse">
           <thead className="bg-gray-50 text-gray-600 uppercase text-xs font-semibold">

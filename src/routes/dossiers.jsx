@@ -15,7 +15,7 @@ function Dossiers() {
 
   const [search, setSearch] = useState("");
   const [type, setType] = useState("Tous les types");
-  const [typesDossiers, setTypesDossiers] = useState([]); // Nouveau state pour les types
+  const [typesDossiers, setTypesDossiers] = useState([]);
 
   const [dateDebut, setDateDebut] = useState("");
   const [dateFin, setDateFin] = useState("");
@@ -24,7 +24,7 @@ function Dossiers() {
 
   useEffect(() => {
     get(etape);
-    getTypesDossiers(); // Récupérer les types au chargement
+    getTypesDossiers();
   }, [etape]);
 
   const get = async (selectedEtape) => {
@@ -41,7 +41,7 @@ function Dossiers() {
     }
   };
 
-  // Nouvelle fonction pour récupérer les types de dossiers
+ 
   const getTypesDossiers = async () => {
     try {
       const response = await api.get("types-dossiers/");
@@ -52,12 +52,12 @@ function Dossiers() {
     }
   };
 
-  // Fonction pour gérer la sauvegarde du scan
+ 
   const handleScanSave = async (scanData) => {
     try {
       const formData = new FormData();
       formData.append('titre', scanData.titre);
-      formData.append('type_id', scanData.type); // Changé de 'type' à 'type_id'
+      formData.append('type_id', scanData.type);
       formData.append('libelle', scanData.libelle);
       formData.append('fichiers', scanData.file);
 
@@ -69,7 +69,7 @@ function Dossiers() {
 
       toast.success(t("Dossier créé avec succès !"));
       
-      // Rafraîchir la liste des dossiers
+     
       await get(etape);
       
     } catch (error) {
@@ -79,17 +79,17 @@ function Dossiers() {
     }
   };
 
-  // Fonction pour parser "07 - 01 - 2026 11:13" → Date object
+ 
   const parseCustomDate = (dateString) => {
     if (!dateString || typeof dateString !== 'string') return null;
     
-    // Si le format est déjà "YYYY-MM-DD" ou "YYYY-MM-DD HH:mm:ss"
+   
     if (dateString.includes('-') && !dateString.includes(' - ')) {
       const date = new Date(dateString);
       return isNaN(date.getTime()) ? null : date;
     }
     
-    // Format personnalisé : "DD - MM - YYYY HH:mm"
+   
     const parts = dateString.trim().split(' ');
     const datePart = parts[0];
     const timePart = parts[1] || "00:00";
@@ -102,7 +102,7 @@ function Dossiers() {
     return isNaN(date.getTime()) ? null : date;
   };
 
-  // Début et fin de journée pour les filtres
+ 
   const startOfDay = (date) => {
     const d = new Date(date);
     d.setHours(0, 0, 0, 0);
@@ -117,7 +117,7 @@ function Dossiers() {
 
   const filtered = useMemo(() => {
     return liste.filter((dossier) => {
-      // 1. Recherche texte
+     
       const text = search.toLowerCase().trim();
       const matchSearch =
         !text ||
@@ -126,12 +126,12 @@ function Dossiers() {
         dossier.libelle?.toLowerCase().includes(text) ||
         dossier.date_creation?.toLowerCase().includes(text);
       
-      // 2. Filtre par type - utilise type_info.nom au lieu de type
+     
       const matchType = type === "Tous les types" || dossier.type_info?.nom === type;
       
       let matchDate = true;
       
-      // 3. Filtre par date
+     
       const dossierDate = parseCustomDate(dossier.date_creation);
       
       if (dossierDate) {
@@ -169,7 +169,7 @@ function Dossiers() {
         </p>
       </div>
 
-      {/* Tabs */}
+      {}
       { (<div className="flex bg-inputFieldColor gap-8 rounded-lg p-1">
         <button
           onClick={() => setEtape("numerisation")}
@@ -193,7 +193,7 @@ function Dossiers() {
         </button>
       </div>)}
 
-      {/* Bouton Scanner - Visible uniquement en numérisation */}
+      {}
       { (
         <div className="flex justify-end">
           <button
@@ -206,11 +206,11 @@ function Dossiers() {
         </div>
       )}
 
-      {/* Filters */}
+      {}
       <div className="bg-white rounded-lg shadow-sm p-6 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4 items-center">
 
-          {/* Search */}
+          {}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -224,7 +224,7 @@ function Dossiers() {
             </div>
           </div>
 
-          {/* Type - Dynamique depuis le backend */}
+          {}
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
@@ -238,7 +238,7 @@ function Dossiers() {
             ))}
           </select>
 
-          {/* Date début */}
+          {}
           <div className="relative">
             <input
               type="date"
@@ -249,7 +249,7 @@ function Dossiers() {
             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           </div>
 
-          {/* Date fin */}
+          {}
           <div className="relative">
             <input
               type="date"
@@ -263,7 +263,7 @@ function Dossiers() {
         </div>
       </div>
 
-      {/* Liste des dossiers ou message vide */}
+      {}
       {filtered.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm p-12 flex flex-col items-center justify-center gap-4">
           <FolderOpen className="w-16 h-16 text-gray-300" />
@@ -280,12 +280,12 @@ function Dossiers() {
         <ListeDossiers donnees={filtered} />
       )}
 
-      {/* Modal de scan */}
+      {}
       <ScanModal
         isOpen={showScanModal}
         onClose={() => setShowScanModal(false)}
         onSave={handleScanSave}
-        typesDossiers={typesDossiers} // Passer les types au modal
+        typesDossiers={typesDossiers}
       />
 
     </div>

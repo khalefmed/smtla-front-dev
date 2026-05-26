@@ -13,7 +13,7 @@ const DetailsDossier = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [etapeLoading, setEtapeLoading] = useState(false);
 
-  // États pour le modal PDF
+ 
   const [showPdfModal, setShowPdfModal] = useState(false);
   const [currentPdf, setCurrentPdf] = useState(null);
   const [pdfScale, setPdfScale] = useState(1);
@@ -21,7 +21,7 @@ const DetailsDossier = () => {
   const [loadingPdf, setLoadingPdf] = useState(false);
   const iframeRef = useRef(null);
 
-  // États pour ajouter des pièces
+ 
   const [showScanModal, setShowScanModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [scanning, setScanning] = useState(false);
@@ -33,7 +33,7 @@ const DetailsDossier = () => {
   const fileInputRef = useRef(null);
 
 
-   // États pour le modal de confirmation
+  
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmAction, setConfirmAction] = useState(null);
 
@@ -89,7 +89,7 @@ const DetailsDossier = () => {
       });
       
       try {
-        // Télécharger le PDF avec authentification
+       
         const response = await fetch(`http://127.0.0.1:8000${piece.path}`, {
           headers: {
             'Authorization': `Bearer ${getAuthToken()}`
@@ -120,7 +120,7 @@ const DetailsDossier = () => {
     setCurrentPdf(null);
     setPdfScale(1);
     
-    // Libérer la mémoire du blob
+   
     if (pdfBlob) {
       URL.revokeObjectURL(pdfBlob);
       setPdfBlob(null);
@@ -180,29 +180,29 @@ const DetailsDossier = () => {
     }
   };
 
-  // const handleCapture = () => {
-  //   console.log('Capturer nouvelle pièce');
-  // };
+ 
+ 
+ 
 
-  // const handleRefresh = () => {
-  //   fetchDossierDetails();
-  // };
+ 
+ 
+ 
 
-  // const handleAddPiece = () => {
-  //   console.log('Ajouter pièce jointe');
-  // };
+ 
+ 
+ 
 
 
-  // Add these functions after the existing functions in your component:
+ 
 
-// Handle file selection for upload
+
 const handleFileSelect = (event) => {
   const file = event.target.files[0];
   if (file) {
     setUploadedFile(file);
     setTitrePiece('');
     
-    // Generate preview for images
+   
     if (file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onload = (e) => setPreviewUrl(e.target.result);
@@ -213,27 +213,27 @@ const handleFileSelect = (event) => {
   }
 };
 
-// Nouvelle fonction pour scanner physique
+
 const handleScan = async () => {
   try {
     setScanning(true);
     setScannerError(null);
     
-    // Méthode 1: Dialogue natif "Ouvrir avec" du navigateur (recommandé)
-    // Cela ouvre le dialogue système qui détecte automatiquement les scanners
+   
+   
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*,.pdf';
-    input.capture = 'environment'; // Optimisé pour scanner
+    input.capture = 'environment';
     
-    // Écouter la sélection
+   
     input.onchange = (event) => {
       const file = event.target.files?.[0];
       if (file) {
         setUploadedFile(file);
         setTitrePiece(`Document scanné - ${file.name}`);
         
-        // Preview pour les images
+       
         if (file.type.startsWith('image/')) {
           const reader = new FileReader();
           reader.onload = (e) => setPreviewUrl(e.target.result);
@@ -244,7 +244,7 @@ const handleScan = async () => {
       }
     };
     
-    // Trigger le dialogue (simule un scan)
+   
     input.click();
     
   } catch (error) {
@@ -255,7 +255,7 @@ const handleScan = async () => {
 };
 
 
-// Fonction avancée pour scanner USB (optionnel)
+
 const handleScanWebUSB = async () => {
   try {
     setScanning(true);
@@ -265,31 +265,31 @@ const handleScanWebUSB = async () => {
       throw new Error('WebUSB non supporté par ce navigateur');
     }
     
-    // Demander l'accès au scanner
+   
     const device = await navigator.usb.requestDevice({
-      filters: [{ vendorId: 0x04A9 }] // Exemple pour un scanner Brother
+      filters: [{ vendorId: 0x04A9 }]
     });
     
     await device.open();
     await device.selectConfiguration(1);
     await device.claimInterface(0);
     
-    // Ici vous devriez implémenter le protocole spécifique du scanner
-    // Cet exemple est simplifié - chaque scanner a son propre protocole
+   
+   
     
     setScannerError('Scanner détecté ! Protocole spécifique requis.');
     setScanning(false);
     
   } catch (error) {
     console.error('Erreur WebUSB:', error);
-    // Fallback vers le dialogue natif
+   
     handleScan();
   }
 };
 
 
 
-// Save piece jointe to backend
+
 const handleSavePiece = async (file) => {
   if (!titrePiece.trim()) {
     alert('Le titre est obligatoire');
@@ -319,10 +319,10 @@ const handleSavePiece = async (file) => {
 
     const newPiece = await response.json();
     
-    // Add to local state immediately
+   
     setPiecesJointes(prev => [newPiece, ...prev]);
     
-    // Reset modal states
+   
     setUploadedFile(null);
     setPreviewUrl(null);
     setTitrePiece('');
@@ -340,7 +340,7 @@ const handleSavePiece = async (file) => {
   }
 };
 
-// Update the button handlers
+
 const handleCapture = () => {
   setShowScanModal(true);
   setUploadedFile(null);
@@ -421,12 +421,12 @@ const handleAddPiece = () => {
       setEtapeLoading(true);
 
       if (nouvelleEtape === 'archive_temporaire') {
-        // Vérifier que le dossier a un type
+       
         if (!dossier.type) {
           throw new Error('Le dossier doit avoir un type pour être archivé');
         }
 
-        // 1. Obtenir ou créer une boîte pour ce type
+       
         const boiteResponse = await fetch(`${API_URL}/boites/obtenir-ou-creer/`, {
           method: 'POST',
           headers: {
@@ -444,7 +444,7 @@ const handleAddPiece = () => {
 
         const boiteData = await boiteResponse.json();
 
-        // 2. Assigner le dossier à la boîte
+       
         const assignerResponse = await fetch(`${API_URL}/boites/assigner/`, {
           method: 'POST',
           headers: {
@@ -462,7 +462,7 @@ const handleAddPiece = () => {
         }
       }
 
-      // 3. Changer l'étape du dossier
+     
       const response = await fetch(`${API_URL}/dossiers/${id}/etape/`, {
         method: 'PATCH',
         headers: {
@@ -570,7 +570,7 @@ const handleAddPiece = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         
-        {/* Bouton retour */}
+        {}
         <button
           onClick={() => navigate('/dossiers')}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
@@ -579,7 +579,7 @@ const handleAddPiece = () => {
           <span>Retour aux dossiers</span>
         </button>
         
-        {/* Informations du dossier */}
+        {}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">Informations du dossier</h2>
@@ -742,7 +742,7 @@ const handleAddPiece = () => {
       </div>
 
 
-            {/* Modal de confirmation de changement d'étape */}
+            {}
       {showConfirmModal && confirmAction && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
@@ -810,11 +810,11 @@ const handleAddPiece = () => {
         </div>
       )}
 
-      {/* Modal PDF Viewer */}
+      {}
       {showPdfModal && currentPdf && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-2xl w-full h-full max-w-7xl max-h-[95vh] flex flex-col">
-            {/* Header du modal */}
+            {}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
               <div className="flex items-center gap-3">
                 <h3 className="text-lg font-semibold text-gray-800">{currentPdf.titre}</h3>
@@ -877,7 +877,7 @@ const handleAddPiece = () => {
               </div>
             </div>
 
-            {/* Viewer PDF */}
+            {}
             <div className="flex-1 overflow-auto bg-gray-100 p-4">
               {loadingPdf ? (
                 <div className="flex items-center justify-center h-full">
@@ -912,7 +912,7 @@ const handleAddPiece = () => {
         </div>
       )}
 
-      {/* Modal Scanner */}
+      {}
       {showScanModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full">
@@ -928,7 +928,7 @@ const handleAddPiece = () => {
             </div>
 
             <div className="p-6 space-y-6">
-              {/* Message d'erreur du scanner */}
+              {}
               {scannerError && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
                   <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -943,7 +943,7 @@ const handleAddPiece = () => {
                 </div>
               )}
 
-              {/* Zone de scan */}
+              {}
               {!uploadedFile ? (
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-8">
                   <div className="text-center">
@@ -971,7 +971,7 @@ const handleAddPiece = () => {
                 </div>
               ) : (
                 <>
-                  {/* Fichier scanné */}
+                  {}
                   <div className="border border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-3">
@@ -1010,7 +1010,7 @@ const handleAddPiece = () => {
                     )}
                   </div>
 
-                  {/* Titre */}
+                  {}
                   <div>
                     <label htmlFor="titre-scan" className="block text-sm font-medium text-gray-700 mb-2">
                       Titre du document <span className="text-red-500">*</span>
@@ -1028,7 +1028,7 @@ const handleAddPiece = () => {
                 </>
               )}
 
-              {/* Actions */}
+              {}
               {uploadedFile && (
                 <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
                   <button
@@ -1061,7 +1061,7 @@ const handleAddPiece = () => {
         </div>
       )}
 
-      {/* Modal Upload */}
+      {}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full">
@@ -1077,7 +1077,7 @@ const handleAddPiece = () => {
             </div>
 
             <div className="p-6 space-y-6">
-              {/* Zone d'upload */}
+              {}
               <input
                 type="file"
                 ref={fileInputRef}
@@ -1108,7 +1108,7 @@ const handleAddPiece = () => {
                 </div>
               ) : (
                 <>
-                  {/* Fichier sélectionné */}
+                  {}
                   <div className="border border-gray-300 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-3">
@@ -1147,7 +1147,7 @@ const handleAddPiece = () => {
                     )}
                   </div>
 
-                  {/* Titre */}
+                  {}
                   <div>
                     <label htmlFor="titre-upload" className="block text-sm font-medium text-gray-700 mb-2">
                       Titre du document <span className="text-red-500">*</span>
@@ -1163,7 +1163,7 @@ const handleAddPiece = () => {
                     />
                   </div>
 
-                  {/* Actions */}
+                  {}
                   <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
                     <button
                       type="button"
