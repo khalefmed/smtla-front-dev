@@ -19,7 +19,7 @@ export  function BAD() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   
-  // États des modaux
+  
   const [showModal, setShowModal] = useState(false);
   const [selectedBAD, setSelectedBAD] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
@@ -45,8 +45,8 @@ export  function BAD() {
         setListe(resBAD.data);
         setClients(resClients.data);
 
-        // On filtre pour ne garder que les factures dont le statut est 'paye'
-        // Vérifiez si votre champ s'appelle 'status', 'etat' ou 'is_paid'
+        
+        
         const facturesPayees = resFactures.data.filter(f => f.status === 'paye');
         setFactures(facturesPayees);
 
@@ -97,7 +97,7 @@ export  function BAD() {
   const handleDownloadPdf = async (bad) => {
     const loadingToast = toast.loading(t("Génération du PDF en cours..."));
     try {
-      // Optionnel : récupérer les détails complets du client pour le PDF
+      
       const clientDetails = clients.find(c => c.id === bad.client) || null;
       await generateBadPDF(bad, clientDetails);
       toast.success(t("Téléchargement lancé"), { id: loadingToast });
@@ -118,7 +118,7 @@ export  function BAD() {
 
   return (
     <div className="flex flex-col gap-8 px-10 max-sm:px-4 py-6">
-      {/* SECTION TITRE & ACTION */}
+      
       <div className="flex justify-between items-center">
         <div>
           <h1 className="font-bold text-2xl text-gray-900">{t("Bons à Délivrer")}</h1>
@@ -132,7 +132,7 @@ export  function BAD() {
         </button>
       </div>
 
-      {/* BARRE DE RECHERCHE */}
+      
       <div className="bg-white rounded-2xl shadow-sm p-4 relative border border-gray-100 font-bold">
         <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input
@@ -144,7 +144,7 @@ export  function BAD() {
         />
       </div>
 
-      {/* GRILLE DES BADs */}
+      
       {loading ? (
         <div className="flex flex-col items-center py-20 gap-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-buttonGradientPrimary"></div>
@@ -155,7 +155,7 @@ export  function BAD() {
           {filtered.map((bad) => (
             <div key={bad.id} className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-xl transition-all group flex flex-col relative overflow-hidden">
               
-              {/* Badge d'expiration rapide */}
+              
               <div className="absolute top-0 right-0 w-2 h-full bg-buttonGradientPrimary group-hover:bg-amber-500 transition-colors"></div>
 
               <div className="flex justify-between items-start mb-5">
@@ -223,7 +223,7 @@ export  function BAD() {
         </div>
       )}
 
-      {/* MODAL FORMULAIRE */}
+      
       {showModal && (
         <BADModal 
           bad={selectedBAD} 
@@ -234,7 +234,7 @@ export  function BAD() {
         />
       )}
 
-      {/* MODAL PREVIEW (DÉTAILS) */}
+      
       {showPreview && previewData && (
         <PreviewBADModal 
           bad={previewData} 
@@ -246,7 +246,7 @@ export  function BAD() {
   );
 }
 
-// --- SOUS-COMPOSANT PREVIEW ---
+
 function PreviewBADModal({ bad, onClose, onDownload }) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
@@ -264,7 +264,7 @@ function PreviewBADModal({ bad, onClose, onDownload }) {
         </div>
         
         <div className="p-10 space-y-8">
-          {/* Infos Principales */}
+          
           <div className="grid grid-cols-2 gap-8 pb-8 border-b border-gray-100 font-bold">
             <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Client</p><p className="text-gray-900 text-lg">{bad.client_nom}</p></div>
             <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Navire</p><p className="text-buttonGradientPrimary text-lg uppercase">{bad.navire}</p></div>
@@ -272,7 +272,7 @@ function PreviewBADModal({ bad, onClose, onDownload }) {
             <div><p className="text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">Validité jusqu'au</p><p className="text-red-500 font-black">{new Date(bad.date_expiration).toLocaleDateString()}</p></div>
           </div>
 
-          {/* Tableau des Items */}
+          
           <div className="space-y-4">
              <div className="flex items-center gap-2">
                 <Anchor className="w-4 h-4 text-buttonGradientPrimary" />
@@ -300,7 +300,7 @@ function PreviewBADModal({ bad, onClose, onDownload }) {
              </div>
           </div>
 
-          {/* Widget Franchise */}
+          
           <div className="p-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-[2rem] flex justify-between items-center border border-blue-100">
             <div className="flex items-center gap-4">
                <div className="p-3 bg-buttonGradientPrimary rounded-2xl text-white shadow-lg shadow-blue-200">
@@ -314,7 +314,7 @@ function PreviewBADModal({ bad, onClose, onDownload }) {
             <span className="text-4xl font-black text-buttonGradientPrimary">{bad.nombre_jours} <span className="text-sm font-bold text-blue-400 uppercase tracking-normal">Jours</span></span>
           </div>
 
-          {/* Action Footer */}
+          
           <button 
             onClick={onDownload}
             className="w-full bg-gray-900 text-white py-6 rounded-[1.5rem] font-black uppercase text-[10px] tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-black transition-all shadow-2xl shadow-gray-200 active:scale-[0.98]"

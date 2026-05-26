@@ -28,13 +28,13 @@ export const ETAPES_DOSSIER = {
 export const aLeRole = (roleCherche) => {
   const groupesData = localStorage.getItem("groupes_info");
 
-  // Si aucune donnée n'est trouvée, l'utilisateur n'a aucun rôle
+  
   if (!groupesData) return false;
 
   try {
     const groupes = JSON.parse(groupesData);
 
-    // .some() renvoie true si au moins un élément du tableau respecte la condition
+    
     return groupes.some(groupe => 
       groupe.roles && groupe.roles.includes(roleCherche)
     );
@@ -65,7 +65,7 @@ export const hasPermission = (page) => {
 
   console.log("Vérification des permissions pour le rôle :", role, "et la page :", page);
 
-  // Si aucune donnée n'est trouvée, l'utilisateur n'a aucun rôle
+  
   if (!role) return false;
 
 

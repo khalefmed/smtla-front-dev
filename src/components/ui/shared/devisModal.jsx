@@ -45,14 +45,14 @@ function DevisModal({ devis, clients, onClose, onSave }) {
     }
   }, [devis]);
 
-  // FONCTION DE NETTOYAGE AVANT ENVOI
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // On crée une copie des données pour ne pas modifier l'état visuel du formulaire
+    
     const cleanedData = {
       ...formData,
-      // Si ETA ou ETD sont vides, on envoie null pour que Django accepte
+      
       eta: formData.eta === "" ? null : formData.eta,
       etd: formData.etd === "" ? null : formData.etd,
     };
@@ -83,7 +83,7 @@ function DevisModal({ devis, clients, onClose, onSave }) {
         </div>
 
         <form onSubmit={handleSubmit} className="overflow-y-auto p-8 space-y-8">
-          {/* Section 1: Identité */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-1">
               <label className="text-[10px] font-bold uppercase text-gray-400">Client</label>
@@ -108,7 +108,7 @@ function DevisModal({ devis, clients, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Section 2: Logistique & Marchandise */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
             <div className="space-y-1">
               <label className="text-[10px] font-bold text-gray-500 uppercase flex items-center gap-1"><Box className="w-3 h-3"/> Volume (CBM)</label>
@@ -124,7 +124,7 @@ function DevisModal({ devis, clients, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Section 3: Escales (Modification des REQUIRED ici) */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
             <div><label className="text-[10px] font-bold text-buttonGradientSecondary uppercase">Port d'arrivée</label><input required type="text" value={formData.port_arrive} onChange={(e) => setFormData({...formData, port_arrive: e.target.value})} className="w-full p-2 bg-white border rounded-lg text-sm" /></div>
             <div><label className="text-[10px] font-bold text-buttonGradientSecondary uppercase">Voyage</label><input required type="text" value={formData.voyage} onChange={(e) => setFormData({...formData, voyage: e.target.value})} className="w-full p-2 bg-white border rounded-lg text-sm" /></div>
@@ -132,14 +132,14 @@ function DevisModal({ devis, clients, onClose, onSave }) {
             <div><label className="text-[10px] font-bold text-buttonGradientSecondary uppercase flex items-center gap-1"><Calendar className="w-3 h-3"/> ETD</label><input type="datetime-local" value={formData.etd} onChange={(e) => setFormData({...formData, etd: e.target.value})} className="w-full p-2 bg-white border rounded-lg text-sm" /></div>
           </div>
 
-          {/* Section 4: Prestations (Ajout des labels d'en-tête) */}
+          {}
           <div className="space-y-4">
             <div className="flex justify-between items-center border-b pb-2">
               <h3 className="font-bold text-gray-800 flex items-center gap-2 text-sm uppercase"><ListPlus className="w-4 h-4 text-buttonGradientSecondary"/> Prestations / Services</h3>
               <button type="button" onClick={addItem} className="text-xs font-bold text-buttonGradientSecondary hover:bg-indigo-50 px-3 py-1 rounded-lg">+ Ajouter une ligne</button>
             </div>
             
-            {/* EN-TÊTE DES COLONNES */}
+            {}
             <div className="flex gap-4 px-2">
               <div className="flex-1 text-[10px] font-bold text-gray-400 uppercase">Désignation / Service</div>
               <div className="w-32 text-[10px] font-bold text-gray-400 uppercase text-right">Prix Unitaire</div>
@@ -161,14 +161,14 @@ function DevisModal({ devis, clients, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Section 5: Commentaires */}
+          {}
           <div className="space-y-1">
             <label className="text-[10px] font-bold text-gray-400 uppercase">Remarques (Visible sur PDF)</label>
             <textarea value={formData.commentaire} onChange={(e) => setFormData({...formData, commentaire: e.target.value})} rows="3" className="w-full p-3 bg-gray-50 rounded-xl text-sm outline-none border focus:border-indigo-100" placeholder="Conditions de paiement, validité..."></textarea>
           </div>
         </form>
 
-        {/* Footer */}
+        {}
         <div className="p-8 border-t bg-gray-50 flex flex-wrap justify-between items-center gap-6">
           <div className="flex gap-8 items-center">
             <label className="flex items-center gap-2 cursor-pointer font-bold text-gray-600 text-xs">

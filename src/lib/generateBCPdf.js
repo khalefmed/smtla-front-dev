@@ -1,9 +1,9 @@
-// Installation requise: npm install jspdf jspdf-autotable
+
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import logo from '@/assets/logo.png';
 
-// Import des signatures/cachets
+
 import sigDG from '@/assets/signatures/directeur_general.png';
 import sigDO from '@/assets/signatures/directeur_operations.png';
 import sigComptable from '@/assets/signatures/comptable.png';
@@ -16,7 +16,7 @@ const formatPrix = (valeur) => {
   if (valeur === undefined || valeur === null || isNaN(valeur)) return '0,00';
   const num = Number(valeur);
   let [entier, decimal] = num.toFixed(2).split('.');
-  // Ajoute un espace standard tous les 3 chiffres
+  
   entier = entier.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   return `${entier},${decimal}`;
 };
@@ -30,14 +30,14 @@ export const generateBCPDF = async (bc, fournisseur) => {
   
   let yPos = 20;
 
-  // ============== 1. TITRE PRINCIPAL ==============
+  
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(18);
   doc.text('BON DE COMMANDE', 105, yPos, { align: 'center' });
   
   yPos += 15;
 
-  // ============== 2. INFOS SOCIÉTÉ SMTLA ==============
+  
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.text('Société : SMTLA', 14, yPos);
@@ -59,7 +59,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
 
   yPos += 15;
 
-  // ============== 3. SECTION FOURNISSEUR ==============
+  
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bolditalic');
   doc.text('FOURNISSEUR', 14, yPos);
@@ -78,7 +78,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
 
   yPos += 15;
 
-  // ============== 4. OBJET DE LA COMMANDE ==============
+  
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bolditalic');
   doc.text('OBJET DE LA COMMANDE', 14, yPos);
@@ -90,7 +90,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
 
   yPos += (splitObjet.length * 5) + 5;
 
-  // ============== 5. TABLEAU DES ARTICLES ==============
+  
   const currency = bc.devise || 'MRU';
   const totalHT = bc.items.reduce((sum, item) => sum + (Number(item.prix_unitaire) * Number(item.quantite)), 0);
   const tva = totalHT * 0.16;
@@ -104,7 +104,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
     formatPrix(Number(item.prix_unitaire) * Number(item.quantite))
   ]);
 
-  // Lignes de totaux
+  
   tableRows.push([{ content: 'TOTAL HT', colSpan: 4, styles: { fontStyle: 'bold', halign: 'right' } }, formatPrix(totalHT)]);
   tableRows.push([{ content: 'TVA (16%)', colSpan: 4, styles: { fontStyle: 'bold', halign: 'right' } }, formatPrix(tva)]);
   tableRows.push([{ content: 'TOTAL TTC', colSpan: 4, styles: { fontStyle: 'bold', fillColor: [240, 240, 240], halign: 'right' } }, { content: `${formatPrix(totalTTC)} ${currency}`, styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }]);
@@ -127,7 +127,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
 
   yPos = doc.lastAutoTable.finalY + 15;
 
-  // ============== 6. SECTION VALIDATION ==============
+  
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bolditalic');
   doc.text('VALIDATION', 14, yPos);
@@ -145,7 +145,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
     styles: { lineColor: [0, 0, 0], lineWidth: 0.1, fontSize: 10 }
   });
 
-  // Ajout du cachet/signature automatique
+  
   if (bc.status === 'valide' && bc.valideur) {
     let signatureImg = null;
     const userType = bc.valideur.type;
@@ -158,12 +158,12 @@ export const generateBCPDF = async (bc, fournisseur) => {
     }
 
     if (signatureImg) {
-      // Positionné dans la première cellule de signature de SMTLA
+      
       doc.addImage(signatureImg, 'PNG', 35, doc.lastAutoTable.finalY - 32, 45, 45);
     }
   }
 
-  // ============== 7. TRAÇABILITÉ ==============
+  
   const yTrace = pageHeight - 25;
   doc.setFontSize(8);
   doc.setTextColor(120, 120, 120);
@@ -182,7 +182,7 @@ export const generateBCPDF = async (bc, fournisseur) => {
   doc.text(`BC établi par : ${createur}`, 14, yTrace);
   doc.text(`Document généré le : ${dateGen}`, 14, yTrace + 4);
 
-  // ============== 8. PIED DE PAGE ==============
+  
   doc.setFontSize(7);
   doc.setTextColor(150, 150, 150);
   doc.text('Siège social : SOCO BMCI N°0190 Moughata de Tevragh Zeina - Nouakchott - Mauritanie', pageWidth / 2, pageHeight - 10, { align: 'center' });

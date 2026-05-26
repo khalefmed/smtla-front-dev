@@ -8,23 +8,23 @@ import {
   Hash, User, AlertCircle, ChevronRight, Boxes, CheckCircle, Loader2 
 } from 'lucide-react';
 import RotationModal from '@/components/ui/shared/rotationModal';
-import { getRole } from '@/lib/utils'; // Importation pour gérer les rôles
+import { getRole } from '@/lib/utils'; 
 
 function Rotations() {
   const { t } = useTranslation();
-  const role = getRole(); // Récupération du rôle actuel
+  const role = getRole(); 
   
-  // États de données
+  
   const [liste, setListe] = useState([]);
   const [stocks, setStocks] = useState([]);
   
-  // États d'interface
+  
   const [loading, setLoading] = useState(true);
   const [clotureLoading, setClotureLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState('entrantes');
 
-  // États du Modal
+  
   const [showModal, setShowModal] = useState(false);
   const [selectedRotation, setSelectedRotation] = useState(null);
 
@@ -93,14 +93,14 @@ function Rotations() {
     }
   };
 
-  // Filtrage intelligent
+  
   const filteredData = useMemo(() => {
     const q = search.toLowerCase();
     
     if (activeTab === 'stock') {
-      // 1. On filtre les clients par recherche
-      // 2. Pour chaque client, on ne garde que les types dont la quantité > 0
-      // 3. On ne garde le client que s'il lui reste au moins un type de matériel avec du stock
+      
+      
+      
       return stocks
         .map(s => ({
           ...s,
@@ -121,7 +121,7 @@ function Rotations() {
   return (
     <div className="flex flex-col gap-6 px-10 max-sm:px-4 py-6">
       
-      {/* HEADER */}
+      
       <div className="flex justify-between items-end">
         <div>
           <h1 className="font-bold text-2xl text-gray-900 tracking-tight">{t("Mouvements Logistiques")}</h1>
@@ -130,7 +130,7 @@ function Rotations() {
         
         {activeTab !== 'stock' && (
           <div className="flex gap-3">
-            {/* BOUTON CLÔTURER TOUT : Affiché seulement pour DG et DO */}
+            
             {(role === 'Directeur Général' || role === 'Directeur des Opérations') && (
               <button
                 onClick={handleCloturerTout}
@@ -153,7 +153,7 @@ function Rotations() {
         )}
       </div>
 
-      {/* TABS */}
+      
       <div className="flex gap-2 p-1.5 bg-gray-100 w-fit rounded-2xl border border-gray-200">
         <button onClick={() => setActiveTab('entrantes')} className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all ${activeTab === 'entrantes' ? "bg-white text-buttonGradientSecondary shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
           <ArrowDownCircle className={`w-5 h-5 ${activeTab === 'entrantes' ? "text-green-500" : ""}`} /> {t("Entrées")}
@@ -166,7 +166,7 @@ function Rotations() {
         </button>
       </div>
 
-      {/* SEARCH BAR */}
+      
       <div className="bg-white rounded-2xl shadow-sm p-4 relative border border-gray-100">
         <Search className="absolute left-7 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input
@@ -178,7 +178,7 @@ function Rotations() {
         />
       </div>
 
-      {/* CONTENT */}
+      
       {loading ? (
          <div className="flex justify-center py-20">
            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-buttonGradientSecondary"></div>
@@ -231,7 +231,7 @@ function Rotations() {
           </div>
         </div>
       ) : (
-        /* VUE LISTE (Même logique que précédemment) */
+        
         <div className="grid grid-cols-1 gap-4">
           {filteredData.length > 0 ? (
             filteredData.map((r) => (

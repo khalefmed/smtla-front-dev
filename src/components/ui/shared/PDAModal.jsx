@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, Ship, ListPlus, Database, Calculator, User, Weight } from 'lucide-react';
 
 const DEFAULT_PDA_ITEMS = [
-  // --- PORTS DUES (Liés au poids) ---
+  
   { category: 'PORT_DUES', label: 'PILOTAGE IN & OUT', grt_value: 0, rate: 0.119 },
   { category: 'PORT_DUES', label: 'TOWAGE IN & OUT', grt_value: 0, rate: 0.173 },
   { category: 'PORT_DUES', label: 'BERTH DUES', grt_value: 0, rate: 0.135 },
   { category: 'PORT_DUES', label: 'MOORING/UNMOORING', grt_value: 0, rate: 0.073 },
   { category: 'PORT_DUES', label: 'LIGHT DUES', grt_value: 0, rate: 0.033 },
 
-  // --- OTHER EXPENSES (Forfaits fixes) ---
+  
   { category: 'OTHER_EXPENSES', label: '1- PORT CALL TAX', grt_value: 1, rate: 500 },
   { category: 'OTHER_EXPENSES', label: '2- PORT IMMIGRATION', grt_value: 1, rate: 400 },
   { category: 'OTHER_EXPENSES', label: '3- OTHER PORT EXPENSE', grt_value: 1, rate: 500 },
@@ -17,7 +17,7 @@ const DEFAULT_PDA_ITEMS = [
   { category: 'OTHER_EXPENSES', label: '5- AGENCY LUMPSUM COSTS', grt_value: 1, rate: 2500 },
   { category: 'OTHER_EXPENSES', label: '6- ISPS FEES PER CALL', grt_value: 1, rate: 500 },
 
-  // --- STEVEDORING (Libre / Manuel) ---
+  
   { category: 'STEVEDORING', label: 'CARGO LINER OUT', grt_value: 9188.4, rate: 4.75 },
 ];
 
@@ -48,7 +48,7 @@ function PDAModal({ pda, clients, onClose, onSave }) {
     items: []
   });
 
-  // Initialisation
+  
   useEffect(() => {
     if (pda) {
       setFormData({ 
@@ -65,14 +65,14 @@ function PDAModal({ pda, clients, onClose, onSave }) {
     }
   }, [pda]);
 
-  // LOGIQUE DE SYNCHRONISATION : Uniquement pour PORT_DUES
+  
   useEffect(() => {
     const numericWeight = parseFloat(formData.weight) || 0;
     
     setFormData(prev => ({
       ...prev,
       items: prev.items.map(item => {
-        // LIAISON RESTREINTE À PORT_DUES UNIQUEMENT
+        
         if (item.category === 'PORT_DUES') {
           return { ...item, grt_value: numericWeight };
         }
@@ -89,7 +89,7 @@ function PDAModal({ pda, clients, onClose, onSave }) {
 
   const addItem = (category) => {
     const currentWeight = parseFloat(formData.weight) || 0;
-    // Seul un nouvel item de PORT_DUES prend le poids par défaut
+    
     const initialGrt = (category === 'PORT_DUES') ? currentWeight : 0;
     
     setFormData({ 
@@ -119,7 +119,7 @@ function PDAModal({ pda, clients, onClose, onSave }) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[95vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
-        {/* HEADER */}
+        {}
         <div className="p-6 border-b flex justify-between items-center bg-buttonGradientPrimary text-white">
           <h2 className="text-xl font-bold">{pda ? "Modifier PDA" : "Nouveau PDA"}</h2>
           <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-full transition-colors"><X className="w-5 h-5" /></button>
@@ -164,7 +164,7 @@ function PDAModal({ pda, clients, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Section 3: Port, Days & Currency */}
+          {}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-indigo-50/50 rounded-2xl border border-indigo-100">
             <div><label className="text-[10px] font-bold text-indigo-900 uppercase">Jours d'escale</label><input type="number" value={formData.number_of_days} onChange={(e) => setFormData({...formData, number_of_days: e.target.value})} className="w-full p-2 mt-1 bg-white border rounded-lg font-bold outline-none focus:ring-2 focus:ring-indigo-500" /></div>
             <div><label className="text-[10px] font-bold text-indigo-900 uppercase">Devise</label>
@@ -180,7 +180,7 @@ function PDAModal({ pda, clients, onClose, onSave }) {
             <div><label className="text-[10px] font-bold text-indigo-900 uppercase">Port</label><input type="text" value={formData.port_of_arrival} onChange={(e) => setFormData({...formData, port_of_arrival: e.target.value})} className="w-full p-2 mt-1 bg-white border rounded-lg font-bold outline-none" /></div>
           </div>
 
-          {/* Tableaux Dynamiques */}
+          {}
           {CATEGORIES.map(cat => (
             <div key={cat.id} className="space-y-4">
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
@@ -192,7 +192,7 @@ function PDAModal({ pda, clients, onClose, onSave }) {
               <div className="space-y-3 px-2">
                 {formData.items.filter(i => i.category === cat.id).map((item, idx) => {
                   const globalIdx = formData.items.findIndex(orig => orig === item);
-                  // LIAISON RESTREINTE ICI
+                  
                   const isLinked = item.category === 'PORT_DUES';
                   
                   return (

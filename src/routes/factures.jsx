@@ -14,10 +14,10 @@ import { generateFacturePDF } from '@/lib/generateFacturePdf';
 import { generateRecuPDF } from '@/lib/generateRecuPdf';
 import { getRole } from '@/lib/utils';
 
-// --- NOUVEAU MODAL DE PAIEMENT ---
+
 function PaymentModal({ facture, onClose, onConfirm }) {
   const [moyen, setMoyen] = useState('espece');
-  const [refRecu, setRefRecu] = useState(''); // Nouveau champ
+  const [refRecu, setRefRecu] = useState(''); 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -27,7 +27,7 @@ function PaymentModal({ facture, onClose, onConfirm }) {
       return;
     }
     setLoading(true);
-    // On envoie les deux informations au parent
+    
     await onConfirm(facture.id, { moyen, reference_recu: refRecu });
     setLoading(false);
   };
@@ -50,7 +50,7 @@ function PaymentModal({ facture, onClose, onConfirm }) {
             <p className="font-bold text-gray-900">{facture.reference} — {Number(facture.montant_total).toLocaleString()} {facture.devise_display}</p>
           </div>
 
-          {/* CHAMP RÉFÉRENCE REÇU (Saisie manuelle) */}
+          
           <div>
             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Référence du Reçu</label>
             <input 
@@ -63,7 +63,7 @@ function PaymentModal({ facture, onClose, onConfirm }) {
             />
           </div>
 
-          {/* MOYEN DE PAIEMENT */}
+          
           <div>
             <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Moyen de Paiement</label>
             <select 
@@ -94,7 +94,7 @@ function PaymentModal({ facture, onClose, onConfirm }) {
   );
 }
 
-// --- PREVIEW MODAL (Inchangé mais on pourrait ajouter les infos de paiement ici) ---
+
 function FacturePreviewModal({ facture, onClose }) {
   if (!facture) return null;
   const nomClient = facture.client?.nom || facture.client_nom || "Client inconnu";
@@ -115,7 +115,7 @@ function FacturePreviewModal({ facture, onClose }) {
         </div>
         
         <div className="p-8 space-y-6 overflow-y-auto max-h-[75vh]">
-            {/* Infos de paiement si payée */}
+            
             {facture.status === 'paye' && (
                 <div className="p-4 bg-green-50 border border-green-100 rounded-2xl flex justify-between items-center">
                     <div>
@@ -129,7 +129,7 @@ function FacturePreviewModal({ facture, onClose }) {
                 </div>
             )}
 
-          {/* ... reste de la preview identique à votre code ... */}
+          
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100">
             <div>
               <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Navire / Type</p>
@@ -141,7 +141,7 @@ function FacturePreviewModal({ facture, onClose }) {
               <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Port</p>
               <p className="font-bold text-sm text-gray-700">{facture.port_arrive || '---'}</p>
             </div>
-            {/* Ajoutez les autres colonnes ici comme dans votre code original */}
+            
           </div>
 
           <table className="w-full text-sm">
@@ -189,7 +189,7 @@ function Factures() {
   const [showFactureModal, setShowFactureModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [showPaymentModal, setShowPaymentModal] = useState(false); // NOUVEAU
+  const [showPaymentModal, setShowPaymentModal] = useState(false); 
   const [selectedFacture, setSelectedFacture] = useState(null);
 
   const currentRole = getRole();
@@ -210,10 +210,10 @@ function Factures() {
     finally { setLoading(false); }
   };
 
-  // NOUVELLE FONCTION POUR LE PAIEMENT
+  
 const handlePay = async (id, data) => {
   try {
-    // data contient { moyen, reference_recu }
+    
     const res = await api.patch(`factures/${id}/payer/`, data);
     
     toast.success(
@@ -225,7 +225,7 @@ const handlePay = async (id, data) => {
     );
     
     setShowPaymentModal(false);
-    fetchData(); // Rafraîchir la liste pour voir le statut "payé"
+    fetchData(); 
   } catch (error) {
     const errorMsg = error.response?.data?.error || "Erreur lors de l'enregistrement du paiement";
     toast.error(errorMsg);
@@ -375,7 +375,7 @@ const handlePay = async (id, data) => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex justify-center gap-1">
-                      {/* BOUTON PAIEMENT SI VALIDE */}
+                      
                       {peutValider && f.status === 'valide' && (
                         <button 
                           onClick={() => { setSelectedFacture(f); setShowPaymentModal(true); }} 
@@ -441,7 +441,7 @@ const handlePay = async (id, data) => {
       {showFactureModal && <FactureModal facture={selectedFacture} onClose={() => setShowFactureModal(false)} onSave={handleSave} clients={clients} />}
       {showImportModal && <ImportDevisModal onClose={() => setShowImportModal(false)} onSuccess={() => { setShowImportModal(false); fetchData(); }} />}
       {showPreview && <FacturePreviewModal facture={selectedFacture} onClose={() => setShowPreview(false)} />}
-      {/* AFFICHAGE DU MODAL DE PAIEMENT */}
+      
       {showPaymentModal && <PaymentModal facture={selectedFacture} onClose={() => setShowPaymentModal(false)} onConfirm={handlePay} />}
     </div>
   );

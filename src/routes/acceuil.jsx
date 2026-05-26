@@ -34,7 +34,7 @@ export default function Acceuil() {
 
   return (
     <div className="flex flex-col gap-10 px-10 max-sm:px-4 ">
-      {/* Header */}
+      
       <div>
         <h1 className="font-bold text-3xl text-blackColor">Tableau de bord</h1>
         <p className="text-textGreyColor font-medium mt-1">
@@ -42,9 +42,9 @@ export default function Acceuil() {
         </p>
       </div>
 
-      {/* First Row: Main Financial Stats */}
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Total Solde Comptes */}
+        
         <StatCard
           title="Solde total des comptes"
           value={`${stats?.total_soldes?.toLocaleString()} MRU`}
@@ -53,7 +53,7 @@ export default function Acceuil() {
           delay={0}
         />
 
-        {/* Total Entrées */}
+        
         <StatCard
           title="Total des entrées"
           value={`${stats?.total_entrees?.toLocaleString()} MRU`}
@@ -62,7 +62,7 @@ export default function Acceuil() {
           delay={0.1}
         />
 
-        {/* Total Sorties */}
+        
         <StatCard
           title="Total des sorties"
           value={`${stats?.total_sorties?.toLocaleString()} MRU`}
@@ -71,7 +71,7 @@ export default function Acceuil() {
           delay={0.2}
         />
 
-        {/* Étudiants à découvert */}
+        
         <StatCard
           title="Étudiants avec solde négatif"
           value={stats?.etudiants_negatifs}
@@ -82,7 +82,7 @@ export default function Acceuil() {
         />
       </div>
 
-      {/* Second Row: Student Overview */}
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Total étudiants"
@@ -113,7 +113,7 @@ export default function Acceuil() {
         />
       </div>
 
-      {/* Third Row: Today's Activity */}
+      
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <StatCard
           title="Transactions aujourd'hui"
@@ -137,7 +137,7 @@ export default function Acceuil() {
         />
       </div>
 
-      {/* This Month Summary */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="rounded-2xl shadow-lg">
           <CardHeader>
@@ -165,7 +165,7 @@ export default function Acceuil() {
           </CardContent>
         </Card>
 
-        {/* Top Classes */}
+        
         <Card className="rounded-2xl shadow-lg">
           <CardHeader>
             <CardTitle className="text-lg">Top 5 classes (effectif)</CardTitle>
@@ -190,7 +190,7 @@ export default function Acceuil() {
   );
 }
 
-// Reusable animated stat card
+
 function StatCard({ title, value, icon, color, delay = 0, badge }) {
   return (
     <motion.div

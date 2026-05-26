@@ -11,12 +11,12 @@ import NoteDeFraisModal from '@/components/ui/shared/noteFraisModal';
 import { getRole } from '@/lib/utils';
 import { generateNoteFraisPdf } from "@/lib/generateNoteFraisPdf";
 
-// --- COMPOSANT PREVIEW MODAL (Adapté au NoteFraisDetailSerializer) ---
+
 function PreviewModal({ note, onClose }) {
   if (!note) return null;
 
   
-  // On récupère les détails de l'EB via le champ imbriqué du serializer
+  
   const eb = note.expression_besoin_detail;
 
   console.log(eb.nom_demandeur)
@@ -24,7 +24,7 @@ function PreviewModal({ note, onClose }) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-        {/* Header */}
+        
         <div className="p-6 bg-gray-900 text-white flex justify-between items-center">
           <div>
             <h2 className="text-lg font-bold flex items-center gap-2 tracking-tight">
@@ -38,7 +38,7 @@ function PreviewModal({ note, onClose }) {
         </div>
 
         <div className="p-8 space-y-6 overflow-y-auto max-h-[75vh]">
-          {/* Section 1: Demandeur & Source (Basée sur l'Expression de Besoin Detail) */}
+          
           <div className="bg-inputFieldColor p-5 rounded-2xl grid grid-cols-3 gap-4 border border-gray-100">
             <div>
               <p className="text-[10px] font-bold text-indigo-500 uppercase mb-1">Demandeur</p>
@@ -54,7 +54,7 @@ function PreviewModal({ note, onClose }) {
             </div>
           </div>
 
-          {/* Section 2: Logistique */}
+          
           <div className="grid grid-cols-3 gap-6 pb-6 border-b border-gray-100">
             <div>
               <p className="text-[10px] font-bold text-gray-400 uppercase mb-1">Navire</p>
@@ -72,7 +72,7 @@ function PreviewModal({ note, onClose }) {
             </div>
           </div>
 
-          {/* Section 3: Tableau des Dépenses Réelles (Items de la Note de Frais) */}
+          
           <div>
             <p className="text-[10px] font-bold text-indigo-500 uppercase mb-3 tracking-widest">Dépenses Réelles</p>
             <table className="w-full text-sm">
@@ -98,7 +98,7 @@ function PreviewModal({ note, onClose }) {
             </table>
           </div>
 
-          {/* Section 4: Total Final */}
+          
           <div className="p-6 bg-indigo-50 rounded-2xl flex justify-between items-center border border-indigo-100 mt-4">
             <div>
                 <span className="font-bold text-indigo-900 uppercase text-xs block">Total Global</span>
@@ -116,7 +116,7 @@ function PreviewModal({ note, onClose }) {
   );
 }
 
-// --- COMPOSANT PRINCIPAL ---
+
 function NotesDeFrais() {
   const { t } = useTranslation();
   const [liste, setListe] = useState([]);
@@ -136,7 +136,7 @@ function NotesDeFrais() {
   const fetchNotes = async () => {
     try {
       setLoading(true);
-      // Ici, le backend renvoie maintenant le NoteFraisDetailSerializer
+      
       const response = await api.get("notes-frais/");
       setListe(response.data);
     } catch (error) {
@@ -169,10 +169,10 @@ function NotesDeFrais() {
 
 const handleSave = async (formData) => { 
   try {
-    // Formatage pour correspondre aux attentes de Django (ForeignKey)
+    
     const payload = {
       ...formData,
-      expression_besoin_id: selectedNote.expression_besoin_detail.id, // On mappe l'ID vers la clé attendue
+      expression_besoin_id: selectedNote.expression_besoin_detail.id, 
     };
 
     if (selectedNote) {
@@ -215,7 +215,7 @@ const handleSave = async (formData) => {
 
   const filtered = useMemo(() => {
     return liste.filter(n => {
-        // Recherche étendue sur les données imbriquées de l'EB
+        
       const content = `${n.reference} ${n.expression_besoin_detail?.client_beneficiaire_nom} ${n.expression_besoin_detail?.navire} ${n.expression_besoin_detail?.reference}`.toLowerCase();
       const matchesSearch = content.includes(search.toLowerCase());
       const matchesStatus = statusFilter === "all" || n.status === statusFilter;
@@ -296,7 +296,7 @@ const handleSave = async (formData) => {
                 </div>
 
                 <div className="space-y-2.5 mb-6">
-                  {/* <div className="flex items-center gap-2 text-sm font-bold text-gray-700"><User className="w-4 h-4 text-gray-400" /> {eb?.client_beneficiaire_nom || "Client inconnu"}</div> */}
+                  
                   <div className="flex items-center gap-2 text-sm text-gray-500"><Ship className="w-4 h-4 text-gray-400" /> {eb?.navire || "-"}</div>
                   <div className="flex items-center gap-2 text-sm text-gray-500"><FileText className="w-4 h-4 text-gray-400" /> {eb?.bl_awb || "-"}</div>
                 </div>

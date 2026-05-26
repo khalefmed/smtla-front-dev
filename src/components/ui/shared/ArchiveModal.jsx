@@ -15,23 +15,23 @@ function ArchiveModal({ onClose, onSave }) {
 const handleSubmit = async (e) => {
   e.preventDefault();
   
-  // 1. On vérifie qu'on a bien un objet File
+  
   if (!formData.fichier) {
     return toast.error("Veuillez sélectionner un fichier sur votre disque");
   }
 
-  // 2. On utilise FormData pour envoyer du binaire
+  
   const data = new FormData();
   data.append('titre', formData.titre);
   data.append('description', formData.description);
   data.append('type_doc', formData.type_doc);
   
-  // C'est ici que ça se joue : formData.fichier doit être l'objet issu de l'input type="file"
+  
   data.append('fichier', formData.fichier); 
 
   try {
     setLoading(true);
-    // 3. Envoi au serveur
+    
     await api.post('archives/', data, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });

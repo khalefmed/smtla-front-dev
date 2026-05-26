@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../i18n";
 import "./index.css";
-import Transactions from "./routes/transactions";
 import Deconnexion from "./routes/deconnexion";
 import Connexion from "./routes/connexion";
 import HomePage from "./routes/app";
@@ -18,14 +17,8 @@ import '@radix-ui/themes/styles.css';
 import { Theme } from "@radix-ui/themes";
 
 import ProtectedRoute from "./lib/auth";
-import Dossiers from "./routes/dossiers";
 import Archives from "./routes/archives";
-import { DetailsArchive } from "./routes/details_archive";
-import { DetailsDossier } from "./routes/details_dossier";
-import GestionUtilisateurs from "./routes/utilisateurs";
-import GestionGroupes from "./routes/groupes";
 import GestionTypes from "./routes/types";
-import GestionUtilisateursSuperAdmin from "./routes/utilisateurs-admin";
 import Clients from "./routes/clients";
 import NotesDeFrais from "./routes/note_frais";
 import Devis from "./routes/devis";
@@ -50,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <ProtectedRoute component={Dashboard} />,
-      },
-      {
-        path: "/transactions",
-        element: <ProtectedRoute component={Transactions} />,
       },
       {
         path: "/rotations",
@@ -92,10 +81,6 @@ const router = createBrowserRouter([
         element: <ProtectedRoute component={FDA} />,
       },
       {
-        path: "/groupes",
-        element: <ProtectedRoute component={GestionGroupes} />,
-      },
-      {
         path: "/types",
         element: <ProtectedRoute component={GestionTypes} />,
       },
@@ -114,22 +99,6 @@ const router = createBrowserRouter([
       {
         path: "/rapport",
         element: <ProtectedRoute component={Rapports} />,
-      },
-      {
-        path: "/dossiers/details/:id",
-        element: <ProtectedRoute component={DetailsDossier} />,
-      },
-      {
-        path: "/archives/details/:id",
-        element: <ProtectedRoute component={DetailsArchive} />,
-      },
-      {
-        path: "/utilisateurs/",
-        element: <ProtectedRoute component={GestionUtilisateurs} />,
-      },
-      {
-        path: "/utilisateurs-admin/",
-        element: <ProtectedRoute component={GestionUtilisateursSuperAdmin} />,
       },
      
       {
