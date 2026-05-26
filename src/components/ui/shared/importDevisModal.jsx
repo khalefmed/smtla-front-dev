@@ -15,7 +15,7 @@ function ImportDevisModal({ onClose, onSuccess }) {
   const fetchAvailableDevis = async () => {
     try {
       const response = await api.get("devis/");
-     
+      // FILTRE : On ne garde que les devis dont le statut est exactement 'valide'
       const validesuniquement = response.data.filter(d => d.status === 'valide');
       setDevisList(validesuniquement);
     } catch (error) {
@@ -26,7 +26,7 @@ function ImportDevisModal({ onClose, onSuccess }) {
   const handleConvert = async (devisId) => {
     setSubmitting(devisId);
     try {
-      await api.post(`devis/${devisId}/convertir-en-factur
+      await api.post(`devis/${devisId}/convertir-en-facture//`);
       toast.success("Facture générée avec succès !");
       onSuccess();
     } catch (error) {

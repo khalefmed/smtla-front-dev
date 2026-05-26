@@ -12,21 +12,21 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
   const [scannerError, setScannerError] = useState(null);
   const fileInputRef = useRef(null);
 
- 
+  // Détecter et se connecter au scanner
   const detectScanner = async () => {
     try {
-     
+      // Vérifier si l'API Web Scanning est disponible (expérimental)
       if ('scanner' in navigator) {
-       
+        // API expérimentale pour scanner
         const scanner = await navigator.scanner.getDevices();
         return scanner.length > 0 ? scanner[0] : null;
       }
       
-     
-     
+      // Sinon, essayer avec l'API TWAIN via une bibliothèque tierce
+      // Ou utiliser une API backend pour communiquer avec le scanner
       
-     
-      return null;
+      // Pour la démo, on simule la recherche d'un scanner
+      return null; // Pas de scanner détecté
       
     } catch (error) {
       console.error('Erreur lors de la détection du scanner:', error);
@@ -39,15 +39,15 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
     setScannerError(null);
     
     try {
-     
+      // Essayer de détecter un scanner
       const scanner = await detectScanner();
       
       if (!scanner) {
-       
+        // Aucun scanner détecté
         setScannerError('Aucune machine de scan connectée');
         setScanning(false);
         
-       
+        // Fermer automatiquement l'erreur après 5 secondes
         setTimeout(() => {
           setScannerError(null);
         }, 5000);
@@ -55,14 +55,14 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
         return;
       }
       
-     
-     
-     
-     
-     
-     
+      // Si un scanner est détecté, lancer le scan
+      // NOTE: Cette partie dépendra de votre implémentation réelle
+      // Vous devrez peut-être utiliser une bibliothèque comme:
+      // - Dynamic Web TWAIN
+      // - Scanner.js
+      // - Ou une API backend qui communique avec le scanner
       
-     
+      // Pour l'instant, on simule un scan
       alert('Scanner détecté ! Fonctionnalité de scan à implémenter avec votre driver.');
       
     } catch (error) {
@@ -78,7 +78,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
   };
 
   const handleImport = () => {
-   
+    // Ouvrir le sélecteur de fichier pour importer depuis le PC
     fileInputRef.current?.click();
   };
 
@@ -87,7 +87,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
     if (file) {
       setScannedFile(file);
       
-     
+      // Créer une preview pour les images
       if (file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -98,18 +98,18 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
         setPreviewUrl(null);
       }
       
-     
+      // Définir automatiquement le titre avec le nom du fichier
       if (!titre) {
-        const fileName = file.name.replace(/\.[^/.]+$/, "");
+        const fileName = file.name.replace(/\.[^/.]+$/, ""); // Enlever l'extension
         setTitre(fileName);
       }
     }
   };
 
-
-
-
-
+//   const handleScan = () => {
+//     // Simuler le scan en ouvrant le sélecteur de fichier
+//     fileInputRef.current?.click();
+//   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -125,11 +125,11 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
       await onSave({
         file: scannedFile,
         titre,
-        type: typeId,
+        type: typeId, // Envoyer l'ID du type
         libelle
       });
       
-     
+      // Réinitialiser le formulaire
       resetForm();
       onClose();
       
@@ -162,7 +162,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {}
+        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-800">Scanner un document</h2>
           <button
@@ -175,9 +175,9 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
           </button>
         </div>
 
-        {}
+        {/* Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {}
+          {/* Message d'erreur du scanner */}
           {scannerError && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
@@ -200,7 +200,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
             </div>
           )}
 
-          {}
+          {/* Zone de scan/upload */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Document scanné
@@ -287,7 +287,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
                   </button>
                 </div>
                 
-                {}
+                {/* Preview pour les images */}
                 {previewUrl && (
                   <div className="mt-3">
                     <img 
@@ -301,7 +301,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
             )}
           </div>
 
-          {}
+          {/* Titre */}
           <div>
             <label htmlFor="titre" className="block text-sm font-medium text-gray-700 mb-2">
               Titre du document <span className="text-red-500">*</span>
@@ -317,7 +317,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
             />
           </div>
 
-          {}
+          {/* Type - Dynamique depuis le backend */}
           <div>
             <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">
               Type de document <span className="text-red-500">*</span>
@@ -348,7 +348,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
             )}
           </div>
 
-          {}
+          {/* Libellé */}
           <div>
             <label htmlFor="libelle" className="block text-sm font-medium text-gray-700 mb-2">
               Libellé / Description <span className="text-red-500">*</span>
@@ -364,7 +364,7 @@ const ScanModal = ({ isOpen, onClose, onSave, typesDossiers = [] }) => {
             />
           </div>
 
-          {}
+          {/* Actions */}
           <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
             <button
               type="button"

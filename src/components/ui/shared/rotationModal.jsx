@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { api } from "@/lib/api";
 import { 
   X, Calendar, Package, Truck, Save, Hash, 
-  User, Info, Ship
+  User, Info, Ship // Ajout de l'icône Ship
 } from 'lucide-react';
 
 function RotationModal({ rotation, type, onClose, onSave }) {
@@ -16,12 +16,12 @@ function RotationModal({ rotation, type, onClose, onSave }) {
     observation: '',
     camion: '',
     quantite: 1,
-    navire: '',
+    navire: '', // Valeur par défaut identique au modèle Django
     [type === 'entrantes' ? 'date_arrivee' : 'date_sortie']: new Date().toISOString().slice(0, 16)
   });
 
   useEffect(() => {
-   
+    // Chargement des données nécessaires
     Promise.all([
       api.get('clients/'),
       api.get('types-materiel/')
@@ -38,7 +38,7 @@ function RotationModal({ rotation, type, onClose, onSave }) {
         observation: rotation.observation || '',
         camion: rotation.camion,
         quantite: rotation.quantite,
-        navire: rotation.navire || 'MV-BRIALLANCE',
+        navire: rotation.navire || 'MV-BRIALLANCE', // Récupération du navire existant
         [type === 'entrantes' ? 'date_arrivee' : 'date_sortie']: 
           (type === 'entrantes' ? rotation.date_arrivee : rotation.date_sortie).slice(0, 16)
       });
@@ -54,7 +54,7 @@ function RotationModal({ rotation, type, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-200">
         
-        {}
+        {/* Header */}
         <div className={`p-6 text-white flex justify-between items-center ${type === 'entrantes' ? 'bg-buttonGradientPrimary' : 'bg-orange-600'}`}>
           <div className="flex items-center gap-3">
             <Package className="w-6 h-6" />
@@ -67,7 +67,7 @@ function RotationModal({ rotation, type, onClose, onSave }) {
 
         <form onSubmit={handleSubmit} className="p-8 space-y-4 max-h-[80vh] overflow-y-auto">
           
-          {}
+          {/* Client Selection */}
           <div className="space-y-1.5">
             <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Client</label>
             <div className="relative">
@@ -85,7 +85,7 @@ function RotationModal({ rotation, type, onClose, onSave }) {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {}
+            {/* Material Selection */}
             <div className="space-y-1.5">
                 <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Type de Matériel</label>
                 <select 
@@ -98,7 +98,7 @@ function RotationModal({ rotation, type, onClose, onSave }) {
                 {typesMateriel.map(t => <option key={t.id} value={t.id}>{t.nom}</option>)}
                 </select>
             </div>
-            {}
+            {/* Navire Selection/Input */}
             <div className="space-y-1.5">
                 <label className="text-[10px] font-bold uppercase text-gray-400 tracking-widest ml-1">Navire</label>
                 <div className="relative">

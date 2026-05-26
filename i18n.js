@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 
-
+// const languages = ['fr', 'ar'];
 
 
 
@@ -14,7 +14,7 @@ i18n.use(initReactI18next).init({
     fr: { translation: fr },
     ar: { translation: ar },
   },
-  lng: "fr",
+  lng: "fr", // Default Value
   interpolation: {
     escapeValue: false,
   },

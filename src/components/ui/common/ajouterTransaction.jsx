@@ -98,7 +98,7 @@ const AjouterTransaction = ({supprimer, id}) => {
         <form onSubmit={(e) => creer(e)} className='w-full max-sm:w-full flex flex-col gap-6 mt-6  '>
                 
                 <div>
-                    {}
+                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
                     <input type="number" value={montant} onChange={(e) => setMontant(e.target.value)} placeholder={t("Montant")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 
@@ -148,7 +148,7 @@ const AjouterTransaction = ({supprimer, id}) => {
                     </select>
                 </div>
                 <div>
-                    {}
+                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
                     <input type="text" value={note} onChange={(e) => setNote(e.target.value)} placeholder={t("Note")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
 

@@ -24,7 +24,7 @@ export function generateEbPdf(eb) {
   const orangeFill = [248, 192, 80];
   const blackText = [0, 0, 0];
 
- 
+  // --- 1. CALCULS ---
   const sommeItems = eb.items?.reduce((acc, curr) => acc + Number(curr.montant || 0), 0) || 0;
   const tvaFacteur = eb.tva ? 0.16 : 0;
   const montantHT = sommeItems;
@@ -34,7 +34,7 @@ export function generateEbPdf(eb) {
   const dateFormatted = eb.date_creation ? new Date(eb.date_creation).toLocaleDateString('fr-FR') : new Date().toLocaleDateString('fr-FR');
   const etaFormatted = eb.eta ? new Date(eb.eta).toLocaleString('fr-FR') : '-';
 
- 
+  // --- 2. EN-TÊTE ---
   try {
     doc.addImage(logo, 'PNG', 14, 10, 40, 20);
   } catch (e) { console.warn("Logo manquant"); }
@@ -47,7 +47,7 @@ export function generateEbPdf(eb) {
   doc.setFont('helvetica', 'normal');
   doc.text(`Réf: ${eb.reference || ''}`, pageWidth - 14, 25, { align: 'right' }); 
 
- 
+  // --- 3. BLOCS INFOS ---
   const startYInfos = 35;
   autoTable(doc, {
     startY: startYInfos,
@@ -77,7 +77,7 @@ export function generateEbPdf(eb) {
     columnStyles: { 0: { fontStyle: 'bold', cellWidth: 30, fillColor: [245, 245, 245] } }
   });
 
- 
+  // --- 4. TABLEAU DES ITEMS ---
   const currencyLabel = eb.devise || 'MRU';
   const tableHead = [['Désignation', 'Type', 'Montant']];
   const tableBody = eb.items?.map(item => [
@@ -105,7 +105,7 @@ export function generateEbPdf(eb) {
     }
   });
 
- 
+  // --- 5. RÉCAPITULATIF FINANCIER ---
   autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 5,
     body: [
@@ -128,10 +128,10 @@ export function generateEbPdf(eb) {
     }
   });
 
- 
+  // --- 6. SIGNATURES (DYNAMIQUE) ---
   let finalYSignatures = doc.lastAutoTable.finalY + 10;
 
- 
+  // Si on est trop proche du bas de page, on passe à la page suivante
   if (finalYSignatures > pageHeight - 70) {
     doc.addPage();
     finalYSignatures = 20;
@@ -158,12 +158,12 @@ export function generateEbPdf(eb) {
           } else if (data.column.index === 1) {
             doc.addImage(signatureComptable, 'PNG', posX, posY, imgSize, imgSize);
           }
-        } catch (e) {  }
+        } catch (e) { /* Signature absente */ }
       }
     }
   });
 
- 
+  // --- 7. TRAÇABILITÉ (DYNAMIQUE) ---
   let yTrace = doc.lastAutoTable.finalY + 5;
   const maxTraceY = pageHeight - 25;
   if (yTrace > maxTraceY) yTrace = maxTraceY;
@@ -184,7 +184,7 @@ export function generateEbPdf(eb) {
   doc.text(`Document établi par : ${createur}`, 14, yTrace);
   doc.text(`Document généré le : ${dateGen}`, 14, yTrace + 4);
 
- 
+  // --- 8. PIED DE PAGE FIXE ---
   doc.setFontSize(7);
   doc.setTextColor(150, 150, 150);
   doc.setFont('helvetica', 'normal');

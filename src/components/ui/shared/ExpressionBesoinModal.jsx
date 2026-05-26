@@ -72,9 +72,9 @@ function ExpressionBesoinModal({ expression, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
-   
-   
+    // if (!formData.client_beneficiaire_id || !formData.bl_awb || !formData.navire || !formData.eta) {
+    //   return toast.error("Veuillez remplir tous les champs obligatoires");
+    // }
     onSave(formData);
   };
 

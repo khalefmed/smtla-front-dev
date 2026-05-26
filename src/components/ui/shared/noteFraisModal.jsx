@@ -93,7 +93,7 @@ function NoteDeFraisModal({ note, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
         
-        {}
+        {/* Header */}
         <div className="p-6 border-b flex justify-between items-center bg-gray-50">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-buttonGradientSecondary rounded-lg text-white">
@@ -110,7 +110,7 @@ function NoteDeFraisModal({ note, onClose, onSave }) {
 
         <form onSubmit={handleSubmit} className="overflow-y-auto p-6 space-y-6">
           
-          {}
+          {/* 1. SELECTION EB (Uniquement en création) */}
           {!note && (
             <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-100 space-y-3">
               <h3 className="font-bold text-indigo-900 uppercase text-xs flex items-center gap-2">
@@ -130,7 +130,7 @@ function NoteDeFraisModal({ note, onClose, onSave }) {
             </div>
           )}
 
-          {}
+          {/* 2. DÉTAILS LOGISTIQUES (Toujours modifiables une fois l'EB choisie ou en Edition) */}
           {(formData.expression_besoin_id || note) && (
             <>
               {/* <div className="bg-slate-50 p-4 rounded-xl space-y-4 border border-slate-200">
@@ -145,7 +145,7 @@ function NoteDeFraisModal({ note, onClose, onSave }) {
                 </div>
               </div> */}
 
-              {}
+              {/* 3. LISTE DES DÉPENSES */}
               <div className="space-y-4">
                 <div className="flex justify-between items-center border-b pb-2">
                   <h3 className="font-bold text-gray-700 uppercase text-xs flex items-center gap-2">
@@ -171,7 +171,7 @@ function NoteDeFraisModal({ note, onClose, onSave }) {
                 ))}
               </div>
 
-              {}
+              {/* 4. TVA ET DEVISE (EN BAS) */}
               {/* <div className="grid grid-cols-2 gap-6 items-center pt-4 border-t">
                 <select 
                   value={formData.devise} 
@@ -194,7 +194,7 @@ function NoteDeFraisModal({ note, onClose, onSave }) {
           )}
         </form>
 
-        {}
+        {/* Footer avec Montant Total */}
         <div className="p-6 border-t bg-buttonGradientSecondary text-white rounded-b-2xl flex justify-between items-center">
           <div>
             <p className="text-xs font-bold uppercase opacity-80 tracking-wider">Montant Total {formData.tva ? 'TTC' : 'HT'}</p>

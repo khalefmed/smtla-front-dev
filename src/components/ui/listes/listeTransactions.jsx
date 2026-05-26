@@ -43,7 +43,7 @@ export const ListeTransactions = ({donnees, setDonnees}) => {
                         <td className='py-4 min-w-[200px] text-start text-black font-medium text-sm '>{e.compte.nom_compte}</td>
                         <td className='py-4 min-w-[100px] text-start text-black font-medium text-sm '>{e.date}</td>
                         <td className='py-4 w-60 flex flex-row gap-1 justify-center align-center  text-center text-textGreyColor font-normal  rounded-lg'>
-                            {}
+                            {/* <ModifierBoutton lien="etablissements" id={e.id} /> */}
                             <DetailsTransaction transaction={e}/>
                         </td>
                     </tr>

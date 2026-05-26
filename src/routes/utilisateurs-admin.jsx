@@ -27,12 +27,12 @@ function GestionUtilisateursSuperAdmin() {
   const [search, setSearch] = useState("");
   const [groupeFiltre, setGroupeFiltre] = useState("tous");
   
- 
+  // Modals
   const [showModalCreer, setShowModalCreer] = useState(false);
   const [showModalModifier, setShowModalModifier] = useState(false);
   const [utilisateurSelectionne, setUtilisateurSelectionne] = useState(null);
   
- 
+  // Form création
   const [username, setUsername] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
@@ -42,7 +42,7 @@ function GestionUtilisateursSuperAdmin() {
   const [showPassword, setShowPassword] =  useState(false);
   const [saving, setSaving] = useState(false);
 
- 
+  // Form modification groupes/rôles
   const [groupesRoles, setGroupesRoles] = useState([]);
 
   const ROLES_DISPONIBLES = [
@@ -61,11 +61,11 @@ function GestionUtilisateursSuperAdmin() {
     try {
       setLoading(true);
 
-     
+      // Charger les groupes
       const groupesResponse = await api.get('groupes/');
       setGroupes(groupesResponse.data);
 
-     
+      // Charger les utilisateurs
       const utilisateursResponse = await api.get('utilisateurs/');
       setUtilisateurs(utilisateursResponse.data);
 
@@ -97,7 +97,7 @@ function GestionUtilisateursSuperAdmin() {
     setMotDePasseGenere(mdp);
     setShowPassword(false);
     
-   
+    // Initialiser avec tous les groupes sans rôles
     setGroupesRoles(groupes.map(g => ({
       groupe_id: g.id,
       groupe_nom: g.nom,
@@ -128,7 +128,7 @@ function GestionUtilisateursSuperAdmin() {
     setSaving(true);
 
     try {
-     
+      // 1. Créer l'utilisateur
       const userData = {
         username: username.trim(),
         telephone: telephone.trim(),
@@ -141,7 +141,7 @@ function GestionUtilisateursSuperAdmin() {
       const response = await api.post('utilisateurs/', userData);
       const nouvelUtilisateur = response.data;
 
-     
+      // 2. Assigner les groupes et rôles
       const groupesAvecRoles = groupesRoles.filter(gr => gr.roles.length > 0);
       
       for (const gr of groupesAvecRoles) {
@@ -173,7 +173,7 @@ function GestionUtilisateursSuperAdmin() {
   const ouvrirModalModifier = (utilisateur) => {
     setUtilisateurSelectionne(utilisateur);
     
-   
+    // Préparer les groupes et rôles
     const groupesRolesInit = groupes.map(g => {
       const groupeUtilisateur = utilisateur.groupes_info?.find(gi => gi.id === g.id);
       return {
@@ -191,7 +191,7 @@ function GestionUtilisateursSuperAdmin() {
     setSaving(true);
 
     try {
-     
+      // Supprimer toutes les relations existantes
       const groupesActuels = utilisateurSelectionne.groupes_info || [];
       
       for (const groupe of groupesActuels) {
@@ -201,7 +201,7 @@ function GestionUtilisateursSuperAdmin() {
         });
       }
 
-     
+      // Ajouter les nouvelles relations
       const groupesAvecRoles = groupesRoles.filter(gr => gr.roles.length > 0);
       
       for (const gr of groupesAvecRoles) {
@@ -289,7 +289,7 @@ function GestionUtilisateursSuperAdmin() {
 
   return (
     <div className="flex flex-col gap-10 px-10 max-sm:px-4">
-      {}
+      {/* Header */}
       <div>
         <h1 className="font-bold text-2xl text-blackColor">
           {t("Gestion des utilisateurs")}
@@ -299,10 +299,10 @@ function GestionUtilisateursSuperAdmin() {
         </p>
       </div>
 
-      {}
+      {/* Actions et recherche */}
       <div className="bg-white rounded-lg shadow-sm p-6 flex flex-col gap-4">
         <div className="flex flex-wrap gap-4 items-center justify-between">
-          {}
+          {/* Search */}
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -316,7 +316,7 @@ function GestionUtilisateursSuperAdmin() {
             </div>
           </div>
 
-          {}
+          {/* Filtre par groupe */}
           <select
             value={groupeFiltre}
             onChange={(e) => setGroupeFiltre(e.target.value)}
@@ -331,7 +331,7 @@ function GestionUtilisateursSuperAdmin() {
             ))}
           </select>
 
-          {}
+          {/* Bouton Créer */}
           <button
             onClick={ouvrirModalCreer}
             className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-buttonGradientPrimary transition-colors flex items-center gap-2"
@@ -342,7 +342,7 @@ function GestionUtilisateursSuperAdmin() {
         </div>
       </div>
 
-      {}
+      {/* Liste des utilisateurs */}
       {utilisateursFiltres.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm p-12 flex flex-col items-center justify-center gap-4">
           <Users className="w-16 h-16 text-gray-300" />
@@ -460,7 +460,7 @@ function GestionUtilisateursSuperAdmin() {
         </div>
       )}
 
-      {}
+      {/* Modal Créer utilisateur */}
       {showModalCreer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
@@ -478,7 +478,7 @@ function GestionUtilisateursSuperAdmin() {
             </div>
 
             <form onSubmit={creerUtilisateur} className="p-6 space-y-6">
-              {}
+              {/* Informations de base */}
               <div className="space-y-4">
                 <h3 className="font-semibold text-gray-900">{t("Informations de base")}</h3>
                 
@@ -554,7 +554,7 @@ function GestionUtilisateursSuperAdmin() {
                 </div>
               </div>
 
-              {}
+              {/* Mot de passe généré */}
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <div className="flex items-start gap-3">
                   <Key className="w-5 h-5 text-buttonGradientPrimary mt-0.5" />
@@ -590,7 +590,7 @@ function GestionUtilisateursSuperAdmin() {
                 </div>
               </div>
 
-              {}
+              {/* Groupes et rôles */}
               <div className="space-y-4">
                 <h3 className="font-semibold text-gray-900">{t("Groupes et rôles")}</h3>
                 
@@ -625,7 +625,7 @@ function GestionUtilisateursSuperAdmin() {
                 )}
               </div>
 
-              {}
+              {/* Actions */}
               <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
                 <button
                   type="button"
@@ -658,7 +658,7 @@ function GestionUtilisateursSuperAdmin() {
         </div>
       )}
 
-      {}
+      {/* Modal Modifier groupes/rôles */}
       {showModalModifier && utilisateurSelectionne && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -706,7 +706,7 @@ function GestionUtilisateursSuperAdmin() {
                 ))}
               </div>
 
-              {}
+              {/* Actions */}
               <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
                 <button
                   type="button"

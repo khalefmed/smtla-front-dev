@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { X, Plus, Trash2, Ship, Database, Calculator, User, Weight, DollarSign, Globe } from 'lucide-react';
 
 const DEFAULT_FDA_ITEMS = [
- 
+  // --- PORTS DUES ---
   { category: 'PORT_DUES', label: 'PILOTAGE IN & OUT', grt_value: 22070, rate: 0.119, port_inv: 825276, price_mru: 279094, price_devise: 6343.05 },
   { category: 'PORT_DUES', label: 'TOWAGE IN & OUT x 02', grt_value: 22070, rate: 0.346, port_inv: 825276, price_mru: 811482, price_devise: 18442.77 },
   { category: 'PORT_DUES', label: 'BERTH DUES', grt_value: 22070, rate: 0.135, port_inv: 825276, price_mru: 1125765, price_devise: 25585.57 },
   { category: 'PORT_DUES', label: 'MOORING/UNMOORING', grt_value: 22070, rate: 0.063, port_inv: 825276, price_mru: 147756, price_devise: 3358.09 },
   { category: 'PORT_DUES', label: 'LIGHT DUES', grt_value: 22070, rate: 0.033, port_inv: 825276, price_mru: 68797, price_devise: 1563.57 },
 
- 
+  // --- OTHER EXPENSES (Total Recap) ---
   { category: 'OTHER_EXPENSES', label: '1- PORT CALL TAX', grt_value: 1, rate: 500 },
   { category: 'OTHER_EXPENSES', label: '2- PORT IMMIGRATION', grt_value: 1, rate: 400 },
   { category: 'OTHER_EXPENSES', label: '3- OTHER PORT EXPENSE', grt_value: 1, rate: 500 },
@@ -17,7 +17,7 @@ const DEFAULT_FDA_ITEMS = [
   { category: 'OTHER_EXPENSES', label: '5- AGENCY LUMPSUM COSTS', grt_value: 1, rate: 2500 },
   { category: 'OTHER_EXPENSES', label: '6- ISPS FEES PER CALL', grt_value: 1, rate: 500 },
 
- 
+  // --- STEVEDORING/HANDLING ON BOARD ---
   { category: 'STEVEDORING', label: 'CARGO LINER OUT', grt_value: 6367.411, rate: 4.75 },
   { category: 'STEVEDORING', label: 'TALC INV SHORE CRANE', grt_value: 792.72, rate: 10 },
   { category: 'STEVEDORING', label: 'Port Charges', grt_value: 1810.37, rate: 1.5 },
@@ -115,14 +115,14 @@ function FDAModal({ fda, clients, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-7xl max-h-[95vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
         
-        {}
+        {/* HEADER */}
         <div className="p-6 border-b flex justify-between items-center bg-buttonGradientPrimary text-white font-bold">
           <h2 className="text-xl">{fda ? "Modifier FDA" : "Nouveau FDA"}</h2>
           <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-full transition-colors"><X className="w-5 h-5" /></button>
         </div>
 
         <form onSubmit={handleSubmit} className="overflow-y-auto p-6 space-y-6">
-          {}
+          {/* TOP INFO - Ajout du sélecteur de devise */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
              <div className="md:col-span-1">
                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Client</label>
@@ -152,7 +152,7 @@ function FDAModal({ fda, clients, onClose, onSave }) {
              </div>
           </div>
 
-          {}
+          {/* TABLEAUX PAR CATÉGORIE */}
           {CATEGORIES.map(cat => (
             <div key={cat.id} className="space-y-3">
               <div className="flex justify-between items-center bg-gray-100/50 p-2 rounded-lg">
@@ -162,7 +162,7 @@ function FDAModal({ fda, clients, onClose, onSave }) {
                 <button type="button" onClick={() => addItem(cat.id)} className="text-[10px] font-bold text-buttonGradientPrimary hover:underline">+ Ajouter</button>
               </div>
 
-              {}
+              {/* HEADER DE TABLE Spécifique */}
               <div className="grid grid-cols-12 gap-3 px-2 text-[9px] font-bold text-gray-400 uppercase tracking-wider">
                 <div className="col-span-3">Désignation</div>
                 <div className="col-span-1 text-center">GRT (Weight)</div>
@@ -218,7 +218,7 @@ function FDAModal({ fda, clients, onClose, onSave }) {
           ))}
         </form>
 
-        {}
+        {/* FOOTER */}
         <div className="p-6 border-t bg-gray-50 flex justify-between items-center">
            <div className="flex gap-8 items-center">
               <div>

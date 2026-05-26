@@ -61,7 +61,7 @@ function Connexion() {
           overflow: hidden;
         }
 
-        
+        /* Animated background orbs */
         .connexion-root::before,
         .connexion-root::after {
           content: '';
@@ -93,7 +93,7 @@ function Connexion() {
           to   { transform: translateY(30px) scale(1.06); }
         }
 
-        
+        /* Card */
         .card {
           position: relative;
           z-index: 1;
@@ -112,7 +112,7 @@ function Connexion() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        
+        /* Left panel */
         .panel-left {
           width: 52%;
           padding: 3rem 2.5rem;
@@ -181,7 +181,7 @@ function Connexion() {
           max-width: 300px;
         }
 
-        
+        /* Decorative grid dots */
         .dot-grid {
           position: absolute;
           bottom: 2rem;
@@ -200,7 +200,7 @@ function Connexion() {
           display: block;
         }
 
-        
+        /* Right panel – form */
         .panel-right {
           width: 48%;
           padding: 3.5rem 3rem;
@@ -235,7 +235,7 @@ function Connexion() {
           color: #8d97b0;
         }
 
-        
+        /* Inputs */
         .fields {
           width: 100%;
           display: flex;
@@ -299,13 +299,13 @@ function Connexion() {
         }
         .eye-btn:hover { opacity: 0.7; }
 
-        
+        /* Submit button */
         .submit-btn {
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
-         
+          // gap: 10px;
           padding: 14px 20px;
           border: none;
           border-radius: 12px;
@@ -342,7 +342,7 @@ function Connexion() {
           transform: none;
         }
 
-        
+        /* Footer */
         .dev-credit {
           position: absolute;
           bottom: 1.5rem;
@@ -373,7 +373,7 @@ function Connexion() {
         }
         .dev-credit a:hover { color: var(--btn-primary, #042B6B); }
 
-        
+        /* Responsive */
         @media (max-width: 768px) {
           .panel-left { display: none; }
           .panel-right { width: 100%; padding: 3rem 2rem; }
@@ -382,7 +382,7 @@ function Connexion() {
 
       <div className="connexion-root">
         <div className="card">
-          {}
+          {/* ── Left decorative panel ── */}
           <div className="panel-left">
             <div className="panel-left-content">
               <span className="badge">{t("Portail Sécurisé")}</span>
@@ -390,7 +390,7 @@ function Connexion() {
               <p>{t("Connexion text")}</p>
             </div>
 
-            {}
+            {/* Dot grid decoration */}
             <div className="dot-grid">
               {Array.from({ length: 25 }).map((_, i) => (
                 <span key={i} />
@@ -398,7 +398,7 @@ function Connexion() {
             </div>
           </div>
 
-          {}
+          {/* ── Right form panel ── */}
           <div className="panel-right">
             <div className="logo-wrap">
               <img src={Logo} width={130} alt="Logo" />
@@ -411,7 +411,7 @@ function Connexion() {
 
             <form onSubmit={connexion} style={{ width: "100%" }}>
               <div className="fields">
-                {}
+                {/* Username */}
                 <div>
                   <p className="field-label">{t("Identifiant")}</p>
                   <div className="input-wrap">
@@ -427,7 +427,7 @@ function Connexion() {
                   </div>
                 </div>
 
-                {}
+                {/* Password */}
                 <div>
                   <p className="field-label">{t("Mot de passe")}</p>
                   <div className="input-wrap">
@@ -457,7 +457,7 @@ function Connexion() {
           </div>
         </div>
 
-        {}
+        {/* Developer credit */}
         <div className="dev-credit">
           <span>Développé par</span>
           <a href="https://www.infinity.mr" target="_blank" rel="noopener noreferrer">

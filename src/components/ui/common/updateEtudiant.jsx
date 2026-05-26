@@ -9,9 +9,9 @@ import { toast } from 'react-hot-toast';
 const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, id }) => {
   const { t } = useTranslation();
 
-  const [tab, setTab] = useState("individuel");
+  const [tab, setTab] = useState("individuel"); // Tab active : 'individuel' ou 'liste'
 
- 
+  // Champs individuels
   const [matricule, setMatricule] = useState("");
   const [prenom, setPrenom] = useState(f_name);
   const [nom, setNom] = useState(l_name);
@@ -20,7 +20,7 @@ const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, 
   const [naissance, setNaissance] = useState(birthday);
   const [classes, setClasses] = useState([]);
 
- 
+  // Champs liste
   const [csvFile, setCsvFile] = useState(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, 
     }
   };
 
- 
+  // Création individuelle
   const creerIndividuel = async (e) => {
     e.preventDefault();
     if (!nom || !prenom || !classe) {
@@ -62,7 +62,7 @@ const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, 
     }
   };
 
- 
+  // Import CSV
   const creerParListe = async () => {
     if (!csvFile) {
       toast.error(<p className="text-redColor">{t("Veuillez sélectionner un fichier CSV")}</p>);
@@ -107,7 +107,7 @@ const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, 
             </AlertDialog.Cancel>
           </AlertDialog.Title>
 
-          {}
+          {/* TABS */}
           {/* <div className="flex mb-4 border-b border-gray-300">
             <button
               className={`flex-1 py-2 ${tab === 'individuel' ? 'border-b-2 border-blue-500 font-semibold' : ''}`}
@@ -127,11 +127,11 @@ const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, 
           <form onSubmit={(e) => creer(e)} className='w-full max-sm:w-full flex flex-col gap-6 mt-6  '>
                 
                 <div>
-                    {}
+                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
                     <input type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} placeholder={t("Prenom")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
-                    {}
+                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
                     <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} placeholder={t("Nom")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
@@ -150,11 +150,11 @@ const UpdateEtudiant = ({matr, f_name, l_name, grade, phone, birthday, balance, 
                     </select>
                 </div>
                 <div>
-                    {}
+                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
                     <input type="text" value={contact} onChange={(e) => setContact(e.target.value)} placeholder={t("Contact")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
                 <div>
-                    {}
+                    {/* <p  className='text-lg  text-blackColor font-semibold'>{t('Code')}</p> */}
                     <input type="date" value={naissance} onChange={(e) => setNaissance(e.target.value)} placeholder={t("Date de naissance")} className="px-4 py-2 w-full bg-inputFieldColor rounded-lg outline-none placeholder-inputTextColor font-normal text-md" />
                 </div>
 

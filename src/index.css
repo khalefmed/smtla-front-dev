@@ -97,21 +97,21 @@
 }
 
 ::-webkit-scrollbar:horizontal {
-  height: 4px; 
+  height: 4px; /* Hauteur réduite pour les petits écrans */
 }
 
-
+/* Media query pour les petits écrans */
 @media screen and (max-width: 768px) {
   ::-webkit-scrollbar {
-    width: 0px; 
+    width: 0px; /* Largeur réduite pour les petits écrans */
   }
 
   ::-webkit-scrollbar:horizontal {
-    height: 4px; 
+    height: 4px; /* Hauteur réduite pour les petits écrans */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.3); 
+    background-color: rgba(0, 0, 0, 0.3); /* Couleur ajustée pour les petits écrans */
   }
 }
 

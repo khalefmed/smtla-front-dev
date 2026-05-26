@@ -66,7 +66,7 @@ function Fournisseurs() {
       f.nom.toLowerCase().includes(q) || 
       f.email?.toLowerCase().includes(q) ||
       f.telephone?.toLowerCase().includes(q) ||
-      f.nif?.toLowerCase().includes(q)
+      f.nif?.toLowerCase().includes(q) // Recherche par NIF ajoutée
     );
   }, [liste, search]);
 

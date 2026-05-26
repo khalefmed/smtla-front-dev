@@ -24,7 +24,7 @@ function TypeMaterielModal({ typeMateriel, onClose, onSave }) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-in zoom-in-95 duration-200 overflow-hidden">
-        {}
+        {/* Header */}
         <div className="p-6 border-b flex justify-between items-center bg-buttonGradientSecondary text-white">
           <div className="flex items-center gap-3">
             <Package className="w-5 h-5" />
@@ -38,7 +38,7 @@ function TypeMaterielModal({ typeMateriel, onClose, onSave }) {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {}
+          {/* Nom du matériel */}
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">
               Nom du matériel / Équipement
@@ -56,7 +56,7 @@ function TypeMaterielModal({ typeMateriel, onClose, onSave }) {
             </div>
           </div>
 
-          {}
+          {/* Description */}
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">
               Description (Optionnel)
@@ -73,7 +73,7 @@ function TypeMaterielModal({ typeMateriel, onClose, onSave }) {
             </div>
           </div>
 
-          {}
+          {/* Action Buttons */}
           <div className="flex gap-3 pt-4">
             <button 
               type="button"

@@ -45,7 +45,7 @@ function BADModal({ bad, clients, factures, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[95vh] flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
         
-        {}
+        {/* Header */}
         <div className="p-6 border-b flex justify-between items-center bg-buttonGradientPrimary text-white">
           <div className="flex items-center gap-3">
             <FileText className="w-6 h-6" />
@@ -58,7 +58,7 @@ function BADModal({ bad, clients, factures, onClose, onSave }) {
 
         <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="overflow-y-auto p-8 space-y-8">
           
-          {}
+          {/* Section 1: Parties prenantes */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-gray-400 tracking-wider">Client</label>
@@ -101,7 +101,7 @@ function BADModal({ bad, clients, factures, onClose, onSave }) {
             </div>
           </div>
 
-          {}
+          {/* Section 2: Logistique Navire */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-amber-50/50 p-6 rounded-2xl border border-amber-100">
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase text-amber-600">Navire</label>
@@ -127,7 +127,7 @@ function BADModal({ bad, clients, factures, onClose, onSave }) {
             </div>
           </div>
 
-          {}
+          {/* Section 3: Items (BL, Colis, Poids) */}
           <div className="space-y-4">
             <div className="flex justify-between items-center border-b border-gray-100 pb-2">
               <h3 className="font-bold text-gray-800 flex items-center gap-2">
@@ -161,7 +161,7 @@ function BADModal({ bad, clients, factures, onClose, onSave }) {
           </div>
         </form>
 
-        {}
+        {/* Footer */}
         <div className="p-8 border-t bg-gray-50 flex justify-between items-center">
           <p className="text-xs text-gray-400 max-w-xs">
             * L'émission d'un BAD engage la responsabilité logistique pour la durée de validité indiquée.

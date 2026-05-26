@@ -12,7 +12,7 @@ import { generateFDAPDF } from '@/lib/generateFdaPdf';
 function FDA() {
   const { t } = useTranslation();
   const [liste, setListe] = useState([]);
-  const [clients, setClients] = useState([]);
+  const [clients, setClients] = useState([]); // État pour la liste des clients
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +25,7 @@ function FDA() {
   const fetchData = async () => {
     try {
       setLoading(true);
-     
+      // Récupération simultanée des FDA et des Clients
       const [resFDA, resClients] = await Promise.all([
         api.get("fdas/"),
         api.get("clients/")
@@ -67,7 +67,7 @@ function FDA() {
     const q = search.toLowerCase();
     return liste.filter(p => 
       p.fda_number?.toLowerCase().includes(q) || 
-      p.client_nom?.toLowerCase().includes(q) ||
+      p.client_nom?.toLowerCase().includes(q) || // Utilisation de client_nom du backend
       p.vessel_name?.toLowerCase().includes(q)
     );
   }, [liste, search]);
@@ -104,7 +104,7 @@ function FDA() {
             <tr>
               <th className="px-6 py-4">{t("FDA N° / Client")}</th>
               <th className="px-6 py-4">{t("Navire / Port")}</th>
-              {}
+              {/* <th className="px-6 py-4 text-right">{t("Estimation Totale")}</th> */}
               <th className="px-6 py-4 text-center">{t("Actions")}</th>
             </tr>
           </thead>
@@ -135,7 +135,7 @@ function FDA() {
                 </td> */}
                 <td className="px-6 py-4">
                   <div className="flex justify-center gap-1">
-                    {}
+                    {/* MODIFICATION */}
                     <button 
                       onClick={() => { setSelectedFDA(fda); setShowModal(true); }} 
                       className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
@@ -144,7 +144,7 @@ function FDA() {
                       <Edit3 className="w-5 h-5" />
                     </button>
 
-                    {}
+                    {/* PDF (à implémenter) */}
                     <button  onClick={() => generateFDAPDF(fda)}
                       className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                       title={t("Générer PDF")}
@@ -152,7 +152,7 @@ function FDA() {
                       <FileText className="w-5 h-5" />
                     </button>
 
-                    {}
+                    {/* SUPPRESSION (Seulement DG) */}
                     {currentRole === 'Directeur Général' && (
                        <button 
                         onClick={() => handleDelete(fda.id)} 
@@ -173,7 +173,7 @@ function FDA() {
       {showModal && (
         <FDAModal 
           fda={selectedFDA} 
-          clients={clients}
+          clients={clients} // Transmission de la liste des clients au modal
           onClose={() => setShowModal(false)} 
           onSave={handleSave} 
         />

@@ -103,7 +103,7 @@ const DetailsArchive = () => {
     try {
       setDesarchivageLoading(true);
 
-     
+      // 1. Retirer le dossier de la boîte
       const retirerResponse = await fetch(`${API_URL}/boites/retirer/`, {
         method: 'POST',
         headers: {
@@ -119,7 +119,7 @@ const DetailsArchive = () => {
         throw new Error('Erreur lors du retrait de la boîte');
       }
 
-     
+      // 2. Changer l'étape du dossier à "validation"
       const etapeResponse = await fetch(`${API_URL}/dossiers/${id}/etape/`, {
         method: 'PATCH',
         headers: {
@@ -135,14 +135,14 @@ const DetailsArchive = () => {
         throw new Error('Erreur lors du changement d\'étape');
       }
 
-     
+      // 3. Rafraîchir les données du dossier
       await fetchDossierDetails();
 
-     
+      // 4. Afficher un message de succès
       alert('Dossier désarchivé avec succès ! Il a été retiré de la boîte et son étape a été changée en "Validation".');
 
-     
-     
+      // 5. Optionnel : Rediriger vers la page des dossiers en validation
+      // navigate('/dossiers');
 
     } catch (err) {
       console.error('Erreur lors du désarchivage:', err);
@@ -187,7 +187,7 @@ const DetailsArchive = () => {
     const indexActuel = ordreEtapes.indexOf(etapeActuelle);
     
     if (indexActuel === -1 || indexActuel === ordreEtapes.length - 1) {
-      return null;
+      return null; // Pas d'étape suivante
     }
     
     return ordreEtapes[indexActuel + 1];
@@ -223,7 +223,7 @@ const DetailsArchive = () => {
         throw new Error('Erreur lors du changement d\'étape');
       }
 
-     
+      // Rafraîchir les données
       await fetchDossierDetails();
 
       alert(`Le dossier est maintenant à l'étape "${formatEtape(etapeSuivante)}"`);
@@ -279,7 +279,7 @@ const DetailsArchive = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         
-        {}
+        {/* Bouton retour */}
         <button
           onClick={() => navigate('/archives')}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
@@ -288,7 +288,7 @@ const DetailsArchive = () => {
           <span>Retour aux archives</span>
         </button>
         
-        {}
+        {/* Informations du dossier */}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">Informations du dossier</h2>
@@ -342,7 +342,7 @@ const DetailsArchive = () => {
           </div>
         </div>
 
-        {}
+        {/* Informations de la boîte d'archive */}
         {dossier.boite && (
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-start gap-4">
@@ -409,7 +409,7 @@ const DetailsArchive = () => {
           </div>
         )}
 
-        {}
+        {/* Message si pas de boîte */}
         {!dossier.boite && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <div className="flex items-center gap-2">
@@ -421,7 +421,7 @@ const DetailsArchive = () => {
           </div>
         )}
 
-        {}
+        {/* Pièces jointes */}
         <div className="bg-white rounded-lg shadow">
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
